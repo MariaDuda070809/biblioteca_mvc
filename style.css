@@ -1,0 +1,195 @@
+body {
+    display: flex;
+    font-family: Playfair Display, serif;
+    background-color: #ffffff; /* light pink background */
+    margin: 5;
+    padding: 5;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: 105vh;
+    flex-direction: column;
+}
+
+.form-container {
+    background-color: #ffd8f5; /* same light pink as body */
+    border: 2px solid #FF1493; /* darker pink border */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+    /* Center content inside form */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    /* width */
+    width: 840px;
+    min-height: 300px;
+    margin: auto;
+}
+
+.form-select{
+    width: 200px;
+}
+
+button, .btn {
+    background-color: #FF1493; /* darker pink buttons for contrast */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    /* Center buttons horizontally */
+    display: block;
+    margin: 10px auto;
+}
+
+.form-container {
+    background-color: #ffd8f5; /* same light pink as body */
+    border: 2px solid #FF1493; /* darker pink border */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+    /* Center content inside form */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    /* width */
+    width: 840px;
+}
+
+button, .btn {
+    background-color: #FF1493; /* darker pink buttons for contrast */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover, .btn:hover {
+    background-color: #FF69B4; /* lighter pink on hover */
+}
+
+h1 {
+    background-color: #FF1493; /* darker pink header */
+    color: white;
+    padding: 40px;
+    margin: 0;
+    font-size: 48px; /* increased size */
+}
+
+.container {
+    margin-top: 59px;
+    padding: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin: 50px 0;
+}
+
+.btn-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    margin: 2px 0; /* reduced vertical margin */
+    margin-right: 5px; 
+    color: white;
+    background-color: #FF1493; /* darker pink */
+    padding: 15px 0;
+    width: 250px;
+    border-radius: 5px;
+    font-size: 20px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+    
+a.btn-link:hover {
+    background-color: #FF69B4; /* lighter pink on hover */
+}
+
+/* New styles added */
+
+.logout {
+    display: inline-block;
+    margin-top: 20px;
+    color: white;
+    background-color: #FF1493;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.logout:hover {
+    background-color: #FF69B4;
+}
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    text-decoration: none;
+}
+
+.back-button .btn {
+    padding: 6px 12px;
+    font-size: 2em;
+}
+
+/* Table styling for listar_professores.php and similar */
+
+.table-pink {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #f4bfff; /* light pink background */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.table-pink th, .table-pink td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    color: black;
+}
+
+.table-pink th {
+    background-color: #FF1493; /* darker pink */
+    color: white;
+}
+
+.table-pink tr:hover {
+    background-color: #FF69B4; /* lighter pink hover */
+}
+
+.no-data {
+    text-align: center;
+    color: #777;
+}
+
+/* Button status for emprestimo/lista_emprestimo.php */
+
+.btn-status {
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
