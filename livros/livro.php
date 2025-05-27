@@ -1,28 +1,23 @@
 <?php
 header('Content-Type: application/json');
-include '../db.php';
+include '../db.php'; // ajuste o caminho se necessário
+  
 
-$titulo = trim($_POST['titulo'] ?? '');
-$autor = trim($_POST['autor'] ?? '');
-$isbn = trim($_POST['isbn'] ?? '');
+$nome_livro = trim($_POST['nome_livro'] ?? '');
+$nome_autor = trim($_POST['nome_autor'] ?? '');
 
 try {
-    if ($titulo && $autor && $isbn) {
-        $sql = "INSERT INTO livros (titulo, autor, isbn) VALUES (:titulo, :autor, :isbn)";
+    if ($nome_livro && $nome_autor) {
+        $sql = "INSERT INTO livros (nome_livro, nome_autor) VALUES (:nome_livro, :nome_autor)";
         $stmt = $conn->prepare($sql);
         $stmt->execute([
-            ':titulo' => $titulo,
-            ':autor' => $autor,
-            ':isbn' => $isbn
+            ':nome_livro' => $nome_livro,
+            ':nome_autor' => $nome_autor
         ]);
         echo json_encode(['status' => 'success', 'message' => 'Livro cadastrado com sucesso!']);
     } else {
         echo json_encode(['status' => 'error', 'message' => 'Preencha todos os campos.']);
     }
 } catch (PDOException $e) {
-    if ($e->getCode() == 23000) {
-        echo json_encode(['status' => 'error', 'message' => 'ISBN já cadastrado.']);
-    } else {
-        echo json_encode(['status' => 'error', 'message' => 'Erro: ' . $e->getMessage()]);
-    }
+    echo json_encode(['status' => 'error', 'message' => 'Erro: ' . $e->getMessage()]);
 }
