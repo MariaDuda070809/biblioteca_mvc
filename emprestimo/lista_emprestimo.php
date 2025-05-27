@@ -26,12 +26,15 @@ $emprestimos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <title>Empréstimos Cadastrados</title>
+    <link rel="stylesheet" href="../style.css">
+
 </head>
 <body>
 
 <h3>Empréstimos Cadastrados</h3>
 
 <table class="table-pink">
+
     <thead>
         <tr>
             <th>ID</th>
