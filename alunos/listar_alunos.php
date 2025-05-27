@@ -21,7 +21,8 @@ $alunos = $stmt->fetchAll(); // Armazena os resultados na variável $professores
 
 <h3>Lista de alunos</h3>
 
-<table class="styled-table">
+<table class="table-pink">
+
     <thead>
         <tr>
             <th>ID</th>

@@ -18,10 +18,12 @@ $livros = $stmt->fetchAll(); // Armazena os resultados na variável $professores
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-
+<div class="container">
 <h3>Livros Cadastrados</h3>
 
-<table class="styled-table">
+
+<table class="table-pink">
+
     <thead>
         <tr>
             <th>ID</th>

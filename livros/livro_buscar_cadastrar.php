@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Buscar e Cadastrar Livros</title>
+    <link rel="stylesheet" href="../style.css">
+
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
         h1 { text-align: center; }
@@ -16,6 +18,7 @@
 <body>
 
 <h1>Buscar e Cadastrar Livro</h1>
+
 
 <input type="text" id="busca" placeholder="Digite o nome do livro">
 <div id="resultados"></div>
