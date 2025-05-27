@@ -1,89 +1,97 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <title>Buscar e Cadastrar Livros</title>
-    <link rel="stylesheet" href="../style.css">
-
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        h1 { text-align: center; }
-        input[type="text"] { padding: 10px; width: 300px; border-radius: 5px; border: 1px solid #ccc; }
-        .livro { display: flex; margin-top: 10px; border-bottom: 1px solid #ccc; padding-bottom: 10px; }
-        .livro img { width: 80px; margin-right: 10px; }
-        .livro div { flex: 1; }
-        button { padding: 5px 10px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; }
-    </style>
+  <meta charset="UTF-8">
+  <title>Buscar e Cadastrar Livro</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="container py-4">
 
-<h1>Buscar e Cadastrar Livro</h1>
+  <h1 class="mb-4">Buscar Livro e Cadastrar</h1>
 
+  <input type="text" id="searchInput" class="form-control mb-3" placeholder="Digite o nome do livro...">
 
-<input type="text" id="busca" placeholder="Digite o nome do livro">
-<div id="resultados"></div>
+  <div id="resultados"></div>
+  <div id="mensagem" class="mt-3"></div>
 
-<script>
-const input = document.getElementById('busca');
-const resultados = document.getElementById('resultados');
+  <script>
+    const searchInput = document.getElementById('searchInput');
+    const resultados = document.getElementById('resultados');
+    const mensagem = document.getElementById('mensagem');
 
-input.addEventListener('keyup', function() {
-    const termo = input.value.trim();
-    if (termo.length < 3) {
-        resultados.innerHTML = '';
-        return;
-    }
+    searchInput.addEventListener('input', async () => {
+      const query = searchInput.value.trim();
+      resultados.innerHTML = '';
+      mensagem.innerHTML = '';
 
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(termo)}`)
-        .then(res => res.json())
-        .then(data => {
-            resultados.innerHTML = '';
-            if (data.items) {
-                data.items.forEach(item => {
-                    const info = item.volumeInfo;
-                    const titulo = info.title || 'Sem título';
-                    const autores = info.authors ? info.authors.join(', ') : 'Desconhecido';
-                    const imagem = info.imageLinks ? info.imageLinks.thumbnail : 'https://via.placeholder.com/80x120?text=Sem+Capa';
-                    const isbn = info.industryIdentifiers ? info.industryIdentifiers[0].identifier : '';
+      if (query.length < 3) return;
 
-                    const div = document.createElement('div');
-                    div.className = 'livro';
-                    div.innerHTML = `
-                        <img src="${imagem}" alt="Capa">
-                        <div>
-                            <h3>${titulo}</h3>
-                            <p><strong>Autor(es):</strong> ${autores}</p>
-                            ${isbn ? `<p><strong>ISBN:</strong> ${isbn}</p>` : ''}
-                            <button onclick='cadastrarLivro(${JSON.stringify(titulo)}, ${JSON.stringify(autores)}, ${JSON.stringify(isbn)})'>Cadastrar</button>
-                        </div>
-                    `;
-                    resultados.appendChild(div);
-                });
-            } else {
-                resultados.innerHTML = '<p>Nenhum livro encontrado.</p>';
-            }
+      try {
+        const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}`);
+        const data = await res.json();
+
+        if (!data.items) {
+          resultados.innerHTML = '<p>Nenhum livro encontrado.</p>';
+          return;
+        }
+
+        data.items.slice(0, 5).forEach(livro => {
+          const info = livro.volumeInfo;
+          const nome_livro = info.title || 'Sem título';
+          const nome_autor = (info.authors && info.authors.join(', ')) || 'Autor desconhecido';
+          const capa = (info.imageLinks && info.imageLinks.thumbnail) || 'https://via.placeholder.com/100x150?text=Sem+Capa';
+
+          const div = document.createElement('div');
+          div.classList.add('card', 'mb-2', 'p-3');
+
+          div.innerHTML = `
+            <div class="d-flex align-items-start">
+              <img src="${capa}" alt="Capa do livro" class="me-3" style="width:100px; height:auto;">
+              <div>
+                <strong>Título:</strong> ${nome_livro}<br>
+                <strong>Autor:</strong> ${nome_autor}<br>
+                <button class="btn btn-success mt-2">Cadastrar</button>
+              </div>
+            </div>
+          `;
+
+          const botao = div.querySelector('button');
+          botao.addEventListener('click', () => {
+            console.log('Botão cadastrar clicado:', nome_livro, nome_autor);
+            cadastrarLivro(nome_livro, nome_autor);
+          });
+
+          resultados.appendChild(div);
         });
-});
-
-function cadastrarLivro(titulo, autor, isbn) {
-    const formData = new FormData();
-    formData.append('titulo', titulo);
-    formData.append('autor', autor);
-    formData.append('isbn', isbn);
-
-    fetch('/tcc/livros/livro.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(res => res.json())
-    .then(response => {
-        alert(response.message);
-    })
-    .catch(() => {
-        alert('Erro ao cadastrar livro.');
+      } catch (error) {
+        mensagem.innerHTML = `<div class="alert alert-danger">Erro ao buscar livros.</div>`;
+      }
     });
-}
-</script>
+
+    async function cadastrarLivro(nome_livro, nome_autor) {
+      const formData = new FormData();
+      formData.append('nome_livro', nome_livro);
+      formData.append('nome_autor', nome_autor);
+
+      try {
+        const res = await fetch('livro.php', {
+          method: 'POST',
+          body: formData
+        });
+        const data = await res.json();
+
+        mensagem.innerHTML = `
+          <div class="alert alert-${data.status === 'success' ? 'success' : 'danger'}">
+            ${data.message}
+          </div>
+        `;
+      } catch (error) {
+        mensagem.innerHTML = `
+          <div class="alert alert-danger">Erro ao conectar com o servidor.</div>
+        `;
+      }
+    }
+  </script>
 
 </body>
 </html>
