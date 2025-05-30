@@ -1,97 +1,157 @@
+<?php
+// Processamento do cadastro
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    header('Content-Type: application/json');
+    include '../db.php';
+
+    $nome_livro = $_POST['nome_livro'] ?? '';
+    $nome_autor = $_POST['nome_autor'] ?? '';
+    $isbn = $_POST['isbn'] ?? '';
+
+    if (empty($nome_livro) || empty($nome_autor)) {
+        echo json_encode(['status' => 'error', 'message' => 'Título e autor são obrigatórios.']);
+        exit;
+    }
+
+    try {
+        // Verificar se o livro já existe pelo título ou ISBN
+        $sqlCheck = "SELECT COUNT(*) FROM livros WHERE nome_livro = ? OR (isbn != '' AND isbn = ?)";
+        $stmtCheck = $pdo->prepare($sqlCheck);
+        $stmtCheck->execute([$nome_livro, $isbn]);
+        $count = $stmtCheck->fetchColumn();
+
+        if ($count > 0) {
+            echo json_encode(['status' => 'error', 'message' => 'Livro já cadastrado!']);
+            exit;
+        }
+
+        // Inserir o livro
+        $sql = "INSERT INTO livros (nome_livro, nome_autor, isbn) VALUES (?, ?, ?)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$nome_livro, $nome_autor, $isbn]);
+
+        echo json_encode(['status' => 'success', 'message' => 'Livro cadastrado com sucesso!']);
+    } catch (PDOException $e) {
+        echo json_encode(['status' => 'error', 'message' => 'Erro ao cadastrar: ' . $e->getMessage()]);
+    }
+    exit;
+    
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Buscar e Cadastrar Livro</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <title>Buscar e Cadastrar Livro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body class="container py-4">
 
-  <h1 class="mb-4">Buscar Livro e Cadastrar</h1>
+<h1 class="mb-4">Buscar e Cadastrar Livro</h1>
+<input type="text" id="busca" class="form-control mb-3" placeholder="Digite o nome do livro..." />
+<div id="resultados"></div>
+<div id="mensagem" class="mt-3"></div>
 
-  <input type="text" id="searchInput" class="form-control mb-3" placeholder="Digite o nome do livro...">
-
-  <div id="resultados"></div>
-  <div id="mensagem" class="mt-3"></div>
-
-  <script>
-    const searchInput = document.getElementById('searchInput');
+<script>
+    const input = document.getElementById('busca');
     const resultados = document.getElementById('resultados');
     const mensagem = document.getElementById('mensagem');
 
-    searchInput.addEventListener('input', async () => {
-      const query = searchInput.value.trim();
-      resultados.innerHTML = '';
-      mensagem.innerHTML = '';
+    input.addEventListener('input', () => {
+        const termo = input.value.trim();
+        resultados.innerHTML = '';
+        mensagem.innerHTML = '';
 
-      if (query.length < 3) return;
+        if (termo.length < 3) return;
 
-      try {
-        const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}`);
-        const data = await res.json();
+        fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(termo)}`)
+            .then(res => res.json())
+            .then(data => {
+                resultados.innerHTML = '';
 
-        if (!data.items) {
-          resultados.innerHTML = '<p>Nenhum livro encontrado.</p>';
-          return;
-        }
+                if (!data.items) {
+                    resultados.innerHTML = '<p>Nenhum livro encontrado.</p>';
+                    return;
+                }
 
-        data.items.slice(0, 5).forEach(livro => {
-          const info = livro.volumeInfo;
-          const nome_livro = info.title || 'Sem título';
-          const nome_autor = (info.authors && info.authors.join(', ')) || 'Autor desconhecido';
-          const capa = (info.imageLinks && info.imageLinks.thumbnail) || 'https://via.placeholder.com/100x150?text=Sem+Capa';
+                data.items.slice(0, 5).forEach(livro => {
+                    const info = livro.volumeInfo;
+                    const nome_livro = info.title || 'Sem título';
+                    const nome_autor = (info.authors && info.authors.join(', ')) || 'Desconhecido';
+                    const isbn = (info.industryIdentifiers && info.industryIdentifiers[0].identifier) || '';
+                    const capa = (info.imageLinks && info.imageLinks.thumbnail) || 'https://via.placeholder.com/100x150?text=Sem+Capa';
 
-          const div = document.createElement('div');
-          div.classList.add('card', 'mb-2', 'p-3');
+                    const div = document.createElement('div');
+                    div.classList.add('card', 'mb-2', 'p-3');
+                    div.innerHTML = `
+                        <div class="d-flex align-items-start">
+                            <img src="${capa}" alt="Capa do livro" class="me-3" style="width:100px;">
+                            <div>
+                                <strong>Título:</strong> ${nome_livro}<br>
+                                <strong>Autor:</strong> ${nome_autor}<br>
+                                ${isbn ? `<strong>ISBN:</strong> ${isbn}<br>` : ''}
+                                <button class="btn btn-success mt-2">Cadastrar</button>
+                            </div>
+                        </div>
+                    `;
 
-          div.innerHTML = `
-            <div class="d-flex align-items-start">
-              <img src="${capa}" alt="Capa do livro" class="me-3" style="width:100px; height:auto;">
-              <div>
-                <strong>Título:</strong> ${nome_livro}<br>
-                <strong>Autor:</strong> ${nome_autor}<br>
-                <button class="btn btn-success mt-2">Cadastrar</button>
-              </div>
-            </div>
-          `;
+                    div.querySelector('button').addEventListener('click', () => {
+                        cadastrarLivro(nome_livro, nome_autor, isbn);
+                    });
 
-          const botao = div.querySelector('button');
-          botao.addEventListener('click', () => {
-            console.log('Botão cadastrar clicado:', nome_livro, nome_autor);
-            cadastrarLivro(nome_livro, nome_autor);
-          });
-
-          resultados.appendChild(div);
-        });
-      } catch (error) {
-        mensagem.innerHTML = `<div class="alert alert-danger">Erro ao buscar livros.</div>`;
-      }
+                    resultados.appendChild(div);
+                });
+            });
     });
 
-    async function cadastrarLivro(nome_livro, nome_autor) {
-      const formData = new FormData();
-      formData.append('nome_livro', nome_livro);
-      formData.append('nome_autor', nome_autor);
+    function cadastrarLivro(nome_livro, nome_autor, isbn) {
+        mensagem.innerHTML = `
+            <div class="alert alert-info" role="alert">
+                Cadastrando livro...
+            </div>
+        `;
 
-      try {
-        const res = await fetch('livro.php', {
-          method: 'POST',
-          body: formData
+        const formData = new FormData();
+        formData.append('nome_livro', nome_livro);
+        formData.append('nome_autor', nome_autor);
+        formData.append('isbn', isbn);
+
+        fetch('livro_buscar_cadastrar.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+            alert(data.message);
+            if (data.status === 'success') {
+                window.location.href = 'livro_buscar_cadastrar.php'; // redireciona para página de livros cadastrados
+            } else {
+                mensagem.innerHTML = `
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        ${data.message}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                    </div>
+                `;
+                setTimeout(() => { mensagem.innerHTML = ''; }, 5000);
+            }
+        })
+        .catch(err => {
+            mensagem.innerHTML = `
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    Erro ao conectar com o servidor.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                </div>
+            `;
+            console.error('Erro:', err);
+            setTimeout(() => { mensagem.innerHTML = ''; }, 5000);
         });
-        const data = await res.json();
-
-        mensagem.innerHTML = `
-          <div class="alert alert-${data.status === 'success' ? 'success' : 'danger'}">
-            ${data.message}
-          </div>
-        `;
-      } catch (error) {
-        mensagem.innerHTML = `
-          <div class="alert alert-danger">Erro ao conectar com o servidor.</div>
-        `;
-      }
     }
-  </script>
+    
+</script>
 
+     <a href="../dashboard.php" class="back-button">
+<
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

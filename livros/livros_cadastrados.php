@@ -34,7 +34,15 @@ $livros = $stmt->fetchAll(); // Armazena os resultados na variável $professores
     <tbody>
         <?php
         // Inclui o arquivo que traz a lista de professores
-        @include '../livro.php'; // Verifique o caminho do arquivo
+        
+        require '../db.php';
+        
+        $sql = "SELECT * FROM livros";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $livros = $stmt->fetchAll(PDO::FETCH_ASSOC); // Recomendo FETCH_ASSOC para evitar conflitos
+        
+        // Verifique o caminho do arquivo
 
         // Verifique se a variável $professores foi definida e se é um array
         if (isset($livros) && is_array($livros)) {
