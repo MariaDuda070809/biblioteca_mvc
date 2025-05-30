@@ -14,17 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     try {
-        // Verificar se o livro já existe pelo título ou ISBN
-        $sqlCheck = "SELECT COUNT(*) FROM livros WHERE nome_livro = ? OR (isbn != '' AND isbn = ?)";
-        $stmtCheck = $pdo->prepare($sqlCheck);
-        $stmtCheck->execute([$nome_livro, $isbn]);
-        $count = $stmtCheck->fetchColumn();
-
-        if ($count > 0) {
-            echo json_encode(['status' => 'error', 'message' => 'Livro já cadastrado!']);
-            exit;
-        }
-
+       
         // Inserir o livro
         $sql = "INSERT INTO livros (nome_livro, nome_autor, isbn) VALUES (?, ?, ?)";
         $stmt = $pdo->prepare($sql);
