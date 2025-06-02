@@ -1,5 +1,6 @@
 <?php
 include '../db.php';
+session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $aluno_id = $_POST['aluno_id'];
@@ -7,6 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $data_retirada = $_POST['data_retirada'];
     $data_devolucao = $_POST['data_devolucao'];
     $professor_id = $_SESSION['id'];
+
+    // var_dump($professor_id);
 
     // Verifica se a data de devolução é maior ou igual à data de retirada
     if (strtotime($data_devolucao) < strtotime($data_retirada)) {
@@ -32,7 +35,84 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Emprestimo de Livro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
 </head>
+<style>
+  body {
+    background: linear-gradient(to right, #4e54c8, #8f94fb);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 40px 0;
+    min-height: 100vh;
+  }
+
+  .container {
+    background: rgba(255, 255, 255, 0.85); /* fundo branco semi-transparente */
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    max-width: 800px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+
+  }
+
+  h2 {
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #333;
+  }
+
+  .form-label {
+    font-weight: 500;
+    color: #444;
+  }
+
+  .btn-gradient {
+    background: linear-gradient(to right, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+  }
+
+  .btn-gradient:hover {
+    background: linear-gradient(to right, #5a67d8, #6b46c1);
+  }
+
+  .back-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    text-decoration: none;
+  }
+
+  .back-button .btn {
+    background-color: white;
+    border: 1px solid #ccc;
+    font-size: 1.2rem;
+    padding: 5px 10px;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: background 0.2s ease;
+  }
+
+  .back-button .btn:hover {
+    background-color: #f0f0f0;
+  }
+
+  select.form-select,
+  input.form-control {
+    border-radius: 8px;
+  }
+</style>
+
 <body>
+
 
 <!-- <h1>Ficha de Controle Empréstimo de Livro Sala de Leitura</h1> -->
 <div class="container">
