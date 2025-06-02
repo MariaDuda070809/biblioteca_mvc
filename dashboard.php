@@ -13,59 +13,142 @@ session_start(); ?>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
 
     <style>
+    html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: url('dashboard.webp'); /* ou 'imagens/dashboard.jpg' */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .form-container {
+    background: rgba(255, 255, 255, 0.6); /* semi-transparente */
+    backdrop-filter: blur(6px);           /* vidro fosco */
+    -webkit-backdrop-filter: blur(6px);   /* compat. Safari */
+    border-radius: 22px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 50px;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
         body {
-            background-color: #f8f9fa;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 30px;
+            font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+            padding: 40px;
         }
 
-        .form-container {
-            background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            max-width: 500px;
-            margin: 0 auto;
-        }
 
         h2 {
             margin-bottom: 20px;
         }
+    ul {
+        list-style: none;
+        padding-left: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+        gap: 20px;
+        position: relative;
+    }
 
-        ul {
-            list-style: none;
-            padding-left: 0;
+    /* Dedo acima dos botões */
+    ul::before {
+        display: block;
+        font-size: 30px;
+        text-align: center;
+        margin-bottom: 10px;
+        width: 100%;
+        position: absolute;
+        top: -40px;
+        left: 0;
+    }
+
+    li {
+        margin-bottom: 0; /* removi para usar gap no ul */
+    }
+
+    .btn-link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 14px 0;
+        /* background-color: #0d6efd; */
+        color: #fff;
+        text-decoration: none;
+        border-radius: 12px;
+        transition: background-color 0.3s;
+        text-align: center;
+        width: 280px; /* tamanho fixo */
+        box-sizing: border-box;
+        font-weight: 600;
+        user-select: none;
+    }
+
+
+    ul li:nth-child(1) .btn-link {
+            background: linear-gradient(to bottom, #FF00BC, #E60000);
         }
 
-        li {
-            margin-bottom: 15px;
+        ul li:nth-child(2) .btn-link {
+            background: linear-gradient(to bottom, #FF7700, #EFD007);
         }
 
-        .btn-link {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #0d6efd;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 6px;
-            transition: background-color 0.3s;
+        ul li:nth-child(3) .btn-link {
+            background: linear-gradient(to bottom, #4FC94B, #00DEFF);
         }
 
-        .btn-link:hover {
-            background-color: #0b5ed7;
+        ul li:nth-child(4) .btn-link {
+            background: linear-gradient(to bottom, #1041E1, #9A00FF);
         }
+        ul li .btn-link {
+    color: white; 
+    text-decoration: none; 
+    transition: transform 0.2s ease-in-out;
+}
 
-        .logout {
-            display: inline-block;
-            margin-top: 20px;
-            color: #dc3545;
-            text-decoration: none;
-            font-weight: bold;
-        }
+ul li .btn-link:hover {
+    transform: scale(1.25);
+    color: white;
+}
 
-        .logout:hover {
-            text-decoration: underline;
-        }
+    .logout {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 0;
+        background-color: #D70000;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 12px;
+        transition: transform 0.2s ease-in-out;
+        text-align: center;
+        width: 100px; /* tamanho fixo */
+        box-sizing: border-box;
+        font-weight: 500;
+        user-select: none;
+        
+    }
+
+    .logout:hover {
+        transform: scale(1.15);
+        color: white;
+        text-decoration: none;
+        
+    }
+</style>
+
     </style>
 </head>
 
@@ -74,6 +157,7 @@ session_start(); ?>
         <h2>Bem-vindo, <?php echo $_SESSION['username']; ?></h2>
         <p>Este é o painel do professor. Aqui você pode acessar suas informações e recursos.</p>
 
+        
         <ul>
             <li><a href="emprestimo/indexEmprestimo.php" class="btn-link">Empréstimo de Livro</a></li>
             <li><a href="cadastro.php" class="btn-link">Cadastros</a></li>
