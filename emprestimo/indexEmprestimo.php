@@ -37,28 +37,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <style>
   body {
-    background: linear-gradient(to right, #4e54c8, #8f94fb);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 40px 0;
-    min-height: 100vh;
-  }
+  background-image: url('../imagens/luna.jpg');
+  background-size: cover;
+  background-position: center;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+
+  /* Centralização usando flexbox */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
 
   .container {
-    background: rgba(255, 255, 255, 0.85); /* fundo branco semi-transparente */
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-    padding: 30px;
-    max-width: 800px;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    
-
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  padding: 30px 20px;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   }
-
   h2 {
     font-weight: bold;
     margin-bottom: 30px;
@@ -101,14 +104,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     transition: background 0.2s ease;
   }
 
-  .back-button .btn:hover {
-    background-color: #f0f0f0;
-  }
+  .btn-gradient {
+  background: linear-gradient(to right, #667eea, #764ba2);
+  color: white;
+  padding: 10px 20px;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: transform 0.3s ease; /* transição de expansão */
+}
 
-  select.form-select,
+.btn-gradient:hover {
+  transform: scale(1.10); 
+  color: white;
+}
+  .back-button .btn:hover {
+    background-color: white;
+  }
   input.form-control {
     border-radius: 8px;
   }
+  .form-select,
+.form-control,
+.select2-container {
+  width: 200% !important;
+  max-width: 120%;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+.select2-selection--single {
+  height: 40px !important;
+  display: flex;
+  align-items: center;
+  border-radius: 10px !important;
+  border: 1px solid #ced4da !important;
+  padding: 4px 10px !important;
+  font-size: 2rem;
+  background-color: #fff;
+}
+
+
+  
 </style>
 
 <body>
@@ -116,6 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <!-- <h1>Ficha de Controle Empréstimo de Livro Sala de Leitura</h1> -->
 <div class="container">
+
     <h2 class="text-center">Ficha de Controle Empréstimo de Livro Sala de Leitura</h2>
     <form action="../emprestimo/indexEmprestimo.php" method="POST" class="form-container">
         <!-- Campo Aluno -->

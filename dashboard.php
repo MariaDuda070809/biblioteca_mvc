@@ -20,7 +20,7 @@ session_start(); ?>
 }
 
 body {
-    background-image: url('dashboard.webp'); /* ou 'imagens/dashboard.jpg' */
+    background-image: url('imagens/dashboard.webp'); /* ou 'imagens/dashboard.jpg' */
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
