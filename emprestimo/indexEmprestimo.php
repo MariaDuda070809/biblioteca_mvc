@@ -30,85 +30,164 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Empréstimo de Livro</title>
+    <link rel="icon" href="../imagens/.jpg" type="image/gif" sizes="18x18">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
     <!-- Adicionando o CSS personalizado -->
-    <style>
-        body {
-          background-image: url('../imagens/luna.jpg');
-            font-family: 'Arial', sans-serif;
-            padding: 160px;
-        }
+ <style>
+    body {
+        background-image: url('../imagens/luna.jpg');
+        background-size: cover;
+        background-position: center;
+        font-family: 'Merriweather', serif;
+        padding: 160px;
+    }
 
-        .container {
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
+    .container {
+        background-color: rgba(255, 255, 255, 0.75); /* semi-transparente */
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        margin: 0 auto;
+    }
 
-        .container h2 {
-            color: #4a90e2;
-            margin-bottom: 30px;
-        }
+    .container h2 {
+        color: #000;
+        margin-bottom: 30px;
+        font-weight: 700;
+        text-align: center;
+    }
 
-        .form-container {
-            margin-top: 20px;
-        }
+    .form-label {
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 5px;
+    }
 
-        .form-label {
-            font-weight: 600;
-            color: #333;
-        }
+    .form-control,
+    .form-select {
+        border-radius: 8px;
+        box-shadow: none;
+        border: 1px solid #ddd;
+        padding: 10px 15px;
+        font-size: 14px;
+        font-weight: 400;
+        width: 100%;
+        background-color: #fff;
+        height: 45px;
+        box-sizing: border-box;
+    }
 
-        .form-control {
-            border-radius: 8px;
-            box-shadow: none;
-            border: 1px solid #ddd;
-            padding: 12px 15px;
-        }
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #4a90e2;
+        box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+        outline: none;
+    }
 
-        .form-control:focus {
-            border-color: #4a90e2;
-            box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
-        }
+    .btn-gradient {
+    background: linear-gradient(to bottom, #1041E1,rgb(105, 146, 235)); /* azul para roxo */
+    border: none;
+    padding: 10px 20px;
+    color:rgb(0, 0, 0);
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    transition: transform 0.2s ease-in-out, background 0.3s;
+    text-decoration: none;
+    }
 
-        .btn-gradient {
-            background: linear-gradient(to right, #4a90e2, #50e3c2);
-            border: none;
-            padding: 10px 20px;
-            color: white;
-            font-size: 16px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
+    .btn-gradient:hover {
+        transform: scale(1.10);
+        color: black;
+    }
 
-        .btn-gradient:hover {
-            background: linear-gradient(to right, #50e3c2, #4a90e2);
-        }
+    .back-button {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 999;
+        text-decoration: none;
+    }
 
-        .back-button {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 999;
-            text-decoration: none;
-        }
+    .btn-back {
+        background-color: #ddd;
+        border: none;
+        padding: 10px 15px;
+        font-size: 18px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-weight: 900;
+        font-family: 'Arial Black', Arial, sans-serif;
 
-        .btn-back {
-            background-color: #ddd;
-            border: none;
-            padding: 10px 15px;
-            font-size: 18px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+    }
 
-        .btn-back:hover {
-            background-color: #bbb;
-        }
-    </style>
+    .btn-back:hover {
+        background-color: #bbb;
+    }
+
+    /* Ajustes para o Select2 */
+    .select2-container .select2-selection--single {
+        height: 45px !important;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        padding: 6px 12px;
+        font-size: 14px;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        color: #555;
+        line-height: normal !important;
+        font-size: 20px; /* aumenta o texto */
+        font-weight: 500; /* opcional: dá mais destaque */
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 100%;
+    }
+
+    .select2-container {
+        width: 100% !important;
+    }
+
+    .select2-selection {
+        height: 45px !important;
+        padding: 10px 15px;
+        border-radius: 8px;
+        border: 1px solid #ddd !important;
+        background-color: #fff !important;
+        display: flex;
+        align-items: center;
+    }
+
+    /* Mantendo o cursor pointer no date, sem modificar appearance */
+    input[type="date"] {
+        cursor: pointer;
+    }
+
+</style>
+
 </head>
+<script>
+document.querySelectorAll('.date-wrapper').forEach(wrapper => {
+    wrapper.addEventListener('click', () => {
+        const input = wrapper.querySelector('input[type="date"]');
+        if (input) {
+            input.focus();
+            // Para alguns navegadores, focar já abre o calendário
+            // Caso não abra, você pode tentar também disparar o click:
+            // input.click();
+        }
+    });
+});
+</script>
 
 <body>
 
@@ -127,16 +206,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <select name="livro_id" id="livro_id" class="form-select" required></select>
         </div>
 
-        <!-- Datas -->
-        <div class="mb-3">
+        <div class="mb-3 date-wrapper">
             <label for="data_emprestimo" class="form-label">Data de Empréstimo:</label>
             <input type="date" name="data_retirada" id="data_emprestimo" class="form-control" required>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3 date-wrapper">
             <label for="data_devolucao" class="form-label">Data de Devolução:</label>
-            <input type="date" name="data_devolucao" id="data_devolucao" class="form-control" required>
+            <input type="date" name="data_devolucao" id="data_devolucao" class="form-control" required> 
         </div>
+
 
         <!-- Botão -->
         <button type="submit" class="btn btn-gradient w-100">Registrar Empréstimo</button>
@@ -146,7 +225,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!-- Link para retornar ao dashboard -->
 <a href="../dashboard.php" class="back-button">
     <button class="btn-back">
-        ←
+        🡸
     </button>
 </a>
 
