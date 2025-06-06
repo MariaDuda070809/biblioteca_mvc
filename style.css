@@ -1,111 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+
+
+
+html, body {    
+    height: 100%;
+}
+
 body {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;  /* Alinha os itens ao topo no eixo principal (coluna) */
-    align-items: center;          /* Centraliza horizontalmente */
-    font-family: 'Playfair Display', serif;
-    background-color: #ffffff;
-    margin: 10px;
-    padding: 10px;
-    text-align: center;
-    min-height: 100vh;            /* Garante que ocupe pelo menos a altura da tela */
+    justify-content: center;  /* Alinha os itens ao centro no eixo principal (coluna) */
+    align-items: center;      /* Centraliza horizontalmente */
+    padding: 35px;   
 }
 
 /* Table styling for listar_professores.php and similar */
-
 .table-pink {
-    width: 150%;
+    width: 100%; /* Ajustado para 100% para melhor responsividade */
     border-collapse: collapse;
     margin-top: 40px;
-    background-color: #ffd8f5; /* light pink background */
+    background-color: rgba(255, 255, 255, 0.3); /* Alterado para fundo semi-transparente */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .form-container {
-    background-color: #ffd8f5; /* same light pink as body */
-    border: 2px solid #FF1493; /* darker pink border */
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-
-    /* Center content inside form */
+    background: rgba(201, 185, 144, 0.288); /* Alterado para fundo semi-transparente */
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: 22px;
+       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    padding: 50px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-
-    /* width */
-    width: 940px;
-    min-height: 300px;
-    margin: auto;
 }
 
-.form-select{
+.form-select {
     width: 200px;
 }
 
-button, .btn {
-    background-color: #FF1493; /* darker pink buttons for contrast */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
 
-    /* Center buttons horizontally */
-    display: block;
-    margin: 10px auto;
+h1 {
+    margin: 10px;
+    font-size: 30px; /* Tamanho aumentado */
+    color: rgb(0, 0, 0); /* Cor do texto */
 }
 
-.form-container {
-    background-color: #ffd8f5; /* same light pink as body */
-    border: 2px solid #FF1493; /* darker pink border */
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-
-    /* Center content inside form */
+.container {
+    margin-top: 40px;
+    padding: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
     
-    /* width */
-    width: 840px;
 }
-
-button, .btn {
-    background-color: #FF1493; /* darker pink buttons for contrast */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-button:hover, .btn:hover {
-    background-color: #FF69B4; /* lighter pink on hover */
-}
-
-h1 {
-    background-color: #FF1493; /* darker pink header */
-    color: white;
-    padding: 40px;
-    margin: 0;
-    font-size: 48px; /* increased size */
-}
-
-.container {
-    margin-top: 40px;   /* Pequena margem superior */
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 
 ul {
     list-style-type: none;
@@ -121,39 +72,31 @@ li {
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    margin: 2px 0; /* reduced vertical margin */
-    margin-right: 5px; 
+    margin: 2px 0; /* Margem reduzida */
     color: white;
-    background-color: #FF1493; /* darker pink */
+    background-color: #ff9100; /* Cor dos links */
     padding: 15px 0;
-    width: 250px;
-    border-radius: 5px;
-    font-size: 20px;
+    width: 300px;
+    border-radius: 12px; /* Alterado para combinar com a referência */
+    font-size: 200px;
     transition: background-color 0.3s ease;
     cursor: pointer;
 }
-    
-a.btn-link:hover {
-    background-color: #FF69B4; /* lighter pink on hover */
-}
 
-/* New styles added */
 
+/* Logout button */
 .logout {
     display: inline-block;
     margin-top: 20px;
     color: white;
-    background-color: #FF1493;
+    background-color: #D70000; /* Cor do botão de logout */
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 12px; /* Alterado para combinar com a referência */
     text-decoration: none;
     transition: background-color 0.3s ease;
     cursor: pointer;
 }
 
-.logout:hover {
-    background-color: #FF69B4;
-}
 
 .back-button {
     position: absolute;
@@ -175,12 +118,12 @@ a.btn-link:hover {
 }
 
 .table-pink th {
-    background-color: #FF1493; /* darker pink */
+    background-color: #ff6600; /* Cor do cabeçalho da tabela */
     color: white;
 }
 
 .table-pink tr:hover {
-    background-color: #FF69B4; /* lighter pink hover */
+    background-color: #ff7300; /* Cor mais clara ao passar o mouse na linha */
 }
 
 .no-data {
@@ -189,11 +132,66 @@ a.btn-link:hover {
 }
 
 /* Button status for emprestimo/lista_emprestimo.php */
-
 .btn-status {
     color: white;
     border: none;
     padding: 8px 12px;
     border-radius: 4px;
     cursor: pointer;
+}
+
+.form-select, input[type="text"], input[type="email"], input[type="password"] {
+    width: 95%; /* Faz com que as caixas ocupem toda a largura do container */
+    padding: 15px; /* Aumenta o padding para mais conforto */
+    border-radius: 12px; /* Bordas arredondadas */
+    border: 1px solid #ccc; /* Borda padrão */
+    margin-bottom: 20px; /* Espaçamento entre as caixas */
+}
+
+    .back-button .btn {
+      background-color:rgb(255, 255, 255);
+      color: black;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      padding: 0;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease;
+      border: none;
+      outline: none;
+    }
+
+    .back-button .btn:hover {
+      transform: scale(1.2);
+    }
+    .senha-container {
+  position: relative;
+  width: 100%;
+}
+
+.senha-container input[type="password"],
+.senha-container input[type="text"] {
+  width: 103%;
+  padding-right: 20px; /* espaço para o botão de olho */
+  box-sizing: border-box;
+}
+
+#toggleSenha {
+  position: absolute;
+  top: 5px;        /* ajuste a distância do topo da caixa */
+  left: 190px;    /* ajuste a distância da borda direita */
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.3em;
+  color: #555;
+  padding: 0;
+  line-height: 1;
+}
+
+#toggleSenha:focus {
+  outline: none;
 }

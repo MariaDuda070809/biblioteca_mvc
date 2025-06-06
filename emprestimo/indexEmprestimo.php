@@ -9,15 +9,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $data_devolucao = $_POST['data_devolucao'];
     $professor_id = $_SESSION['id'];
 
-    // var_dump($professor_id);
-
-    // Verifica se a data de devolução é maior ou igual à data de retirada
     if (strtotime($data_devolucao) < strtotime($data_retirada)) {
         echo "<script>alert('Erro: A data de devolução não pode ser anterior à data de retirada.');</script>";
     } else {
         $sql = "INSERT INTO emprestimos (aluno_id, livro_id, data_retirada, data_devolucao, professor_id) VALUES (?, ?, ?, ?, ?)";
         $stmt = $pdo->prepare($sql);
-        
+
         if ($stmt->execute([$aluno_id, $livro_id, $data_retirada, $data_devolucao,$professor_id])) {
             echo "<script>alert('Empréstimo registrado com sucesso!');</script>";
         } else {
@@ -32,127 +29,169 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Emprestimo de Livro</title>
+    <title>Empréstimo de Livro</title>
+    <link rel="icon" href="../imagens/.jpg" type="image/gif" sizes="18x18">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-</head>
-<style>
-  body {
-  background-image: url('../imagens/luna.jpg');
-  background-size: cover;
-  background-position: center;
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    <!-- Adicionando o CSS personalizado -->
+ <style>
+    body {
+        background-image: url('../imagens/luna.jpg');
+        background-size: cover;
+        background-position: center;
+        font-family: 'Merriweather', serif;
+        padding: 160px;
+    }
 
-  /* Centralização usando flexbox */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
+    .container {
+        background-color: rgba(255, 255, 255, 0.75); /* semi-transparente */
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        margin: 0 auto;
+    }
 
-  .container {
-  background: rgba(255, 255, 255, 0.85);
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  padding: 30px 20px;
-  max-width: 800px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  }
-  h2 {
-    font-weight: bold;
-    margin-bottom: 30px;
-    color: #333;
-  }
+    .container h2 {
+        color: #000;
+        margin-bottom: 30px;
+        font-weight: 700;
+        text-align: center;
+    }
 
-  .form-label {
-    font-weight: 500;
-    color: #444;
-  }
+    .form-label {
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 5px;
+    }
 
-  .btn-gradient {
-    background: linear-gradient(to right, #667eea, #764ba2);
-    color: white;
+    .form-control,
+    .form-select {
+        border-radius: 8px;
+        box-shadow: none;
+        border: 1px solid #ddd;
+        padding: 10px 15px;
+        font-size: 14px;
+        font-weight: 400;
+        width: 100%;
+        background-color: #fff;
+        height: 45px;
+        box-sizing: border-box;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #4a90e2;
+        box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+        outline: none;
+    }
+
+    .btn-gradient {
+    background: linear-gradient(to bottom, #1041E1,rgb(105, 146, 235)); /* azul para roxo */
     border: none;
     padding: 10px 20px;
-    font-weight: 600;
+    color:rgb(0, 0, 0);
+    font-size: 18px;
     border-radius: 8px;
-    transition: background 0.3s ease;
-  }
-
-  .btn-gradient:hover {
-    background: linear-gradient(to right, #5a67d8, #6b46c1);
-  }
-
-  .back-button {
-    position: fixed;
-    top: 20px;
-    left: 20px;
+    cursor: pointer;
+    width: 100%;
+    transition: transform 0.2s ease-in-out, background 0.3s;
     text-decoration: none;
-  }
+    }
 
-  .back-button .btn {
-    background-color: white;
-    border: 1px solid #ccc;
-    font-size: 1.2rem;
-    padding: 5px 10px;
-    border-radius: 50%;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    transition: background 0.2s ease;
-  }
+    .btn-gradient:hover {
+        transform: scale(1.10);
+        color: black;
+    }
 
-  .btn-gradient {
-  background: linear-gradient(to right, #667eea, #764ba2);
-  color: white;
-  padding: 10px 20px;
-  font-weight: 600;
-  border-radius: 8px;
-  transition: transform 0.3s ease; /* transição de expansão */
-}
+    .back-button {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 999;
+        text-decoration: none;
+    }
 
-.btn-gradient:hover {
-  transform: scale(1.10); 
-  color: white;
-}
-  .back-button .btn:hover {
-    background-color: white;
-  }
-  input.form-control {
-    border-radius: 8px;
-  }
-  .form-select,
-.form-control,
-.select2-container {
-  width: 200% !important;
-  max-width: 120%;
-  box-sizing: border-box;
-  align-items: center;
-}
+    .btn-back {
+        background-color: #ddd;
+        border: none;
+        padding: 10px 15px;
+        font-size: 18px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-weight: 900;
+        font-family: 'Arial Black', Arial, sans-serif;
 
-.select2-selection--single {
-  height: 40px !important;
-  display: flex;
-  align-items: center;
-  border-radius: 10px !important;
-  border: 1px solid #ced4da !important;
-  padding: 4px 10px !important;
-  font-size: 2rem;
-  background-color: #fff;
-}
+    }
 
+    .btn-back:hover {
+        background-color: #bbb;
+    }
 
-  
+    /* Ajustes para o Select2 */
+    .select2-container .select2-selection--single {
+        height: 45px !important;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        padding: 6px 12px;
+        font-size: 14px;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        color: #555;
+        line-height: normal !important;
+        font-size: 20px; /* aumenta o texto */
+        font-weight: 500; /* opcional: dá mais destaque */
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 100%;
+    }
+
+    .select2-container {
+        width: 100% !important;
+    }
+
+    .select2-selection {
+        height: 45px !important;
+        padding: 10px 15px;
+        border-radius: 8px;
+        border: 1px solid #ddd !important;
+        background-color: #fff !important;
+        display: flex;
+        align-items: center;
+    }
+
+    /* Mantendo o cursor pointer no date, sem modificar appearance */
+    input[type="date"] {
+        cursor: pointer;
+    }
+
 </style>
+
+</head>
+<script>
+document.querySelectorAll('.date-wrapper').forEach(wrapper => {
+    wrapper.addEventListener('click', () => {
+        const input = wrapper.querySelector('input[type="date"]');
+        if (input) {
+            input.focus();
+            // Para alguns navegadores, focar já abre o calendário
+            // Caso não abra, você pode tentar também disparar o click:
+            // input.click();
+        }
+    });
+});
+</script>
 
 <body>
 
-
-<!-- <h1>Ficha de Controle Empréstimo de Livro Sala de Leitura</h1> -->
 <div class="container">
-
     <h2 class="text-center">Ficha de Controle Empréstimo de Livro Sala de Leitura</h2>
     <form action="../emprestimo/indexEmprestimo.php" method="POST" class="form-container">
         <!-- Campo Aluno -->
@@ -167,21 +206,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <select name="livro_id" id="livro_id" class="form-select" required></select>
         </div>
 
-        <!-- Datas -->
-        <div class="mb-3">
+        <div class="mb-3 date-wrapper">
             <label for="data_emprestimo" class="form-label">Data de Empréstimo:</label>
             <input type="date" name="data_retirada" id="data_emprestimo" class="form-control" required>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3 date-wrapper">
             <label for="data_devolucao" class="form-label">Data de Devolução:</label>
-            <input type="date" name="data_devolucao" id="data_devolucao" class="form-control" required>
+            <input type="date" name="data_devolucao" id="data_devolucao" class="form-control" required> 
         </div>
+
 
         <!-- Botão -->
         <button type="submit" class="btn btn-gradient w-100">Registrar Empréstimo</button>
     </form>
 </div>
+
+<!-- Link para retornar ao dashboard -->
+<a href="../dashboard.php" class="back-button">
+    <button class="btn-back">
+        🡸
+    </button>
+</a>
 
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -191,22 +237,22 @@ $(document).ready(function () {
     function initSelect2(selector, url, placeholderText) {
         $(selector).select2({
             placeholder: placeholderText,
-            allowClear: false,  // Desabilitar o "x" para limpar a seleção
+            allowClear: false,
             ajax: {
                 url: url,
                 dataType: 'json',
                 delay: 250,
                 data: function (params) {
                     return {
-                        term: params.term // texto digitado
+                        term: params.term
                     };
                 },
                 processResults: function (data) {
                     return {
                         results: data.map(function (item) {
                             return {
-                                id: item.id,    // id do aluno ou livro
-                                text: item.text  // o nome do aluno ou livro que deve aparecer no select
+                                id: item.id,
+                                text: item.text
                             };
                         })
                     };
@@ -222,7 +268,7 @@ $(document).ready(function () {
                     return "Nenhum resultado encontrado";
                 }
             }
-        }).val(null).trigger("change");  // Garantir que o valor do select seja vazio ao iniciar
+        }).val(null).trigger("change");
     }
 
     initSelect2('#aluno_id', 'buscar_alunos.php', 'Digite o nome do aluno');
@@ -232,9 +278,3 @@ $(document).ready(function () {
 
 </body>
 </html>
-
-<a href="../dashboard.php" class="back-button">
-    <button class="btn">
-        ←
-    </button>
-</a>
