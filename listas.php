@@ -15,6 +15,7 @@
             <li><a href="alunos/listar_alunos.php" class="btn-link">Lista de Alunos</a></li>
             <li><a href="professores/listar_professores.php" class="btn-link">Lista de professores</a></li>
             <li><a href="emprestimo/lista_emprestimo.php" class="btn-link">Emprestimos Cadastrados</a></li>
+            <li><a href="graficos/grafico_turnos.php" class="btn-link">Relatório de Empréstimos</a></li>
             <!-- <li><a href="cadastrar_emprestimo.html">Cadastrar Empréstimo</a></li> -->
         </ul>
     </div>

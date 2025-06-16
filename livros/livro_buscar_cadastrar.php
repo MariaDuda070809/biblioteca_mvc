@@ -40,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     background-size: cover;
     font-family: 'Merriweather', serif;
     overflow-x: hidden;
+    
 }
 
 /* Topo fixo com barra de busca */
@@ -55,8 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 /* Espaço para o conteúdo após a barra fixa */
 .content-wrapper {
     margin-top: 10px;
-    background-color: rgba(255, 255, 255, 0.30); /* menos transparente */
+    background-color: rgba(255, 255, 255, 0.45); /* menos transparente */
     box-shadow: 0 4px 20px rgba(0,0,0,0.55);
+    border-radius: 20px;
 }
 
 /* Botão voltar */
@@ -89,6 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     border: none;
     border-left: 5px solidrgb(103, 0, 114);
     transition: all 0.3s ease;
+    border-radius: 20px;
 }
 
 .card:hover {
@@ -205,11 +208,12 @@ h1 {
                 });
         });
 
-        function cadastrarLivro(nome_livro, nome_autor, isbn) {
+        function cadastrarLivro(nome_livro, nome_autor, isbn, verificados) {
             const formData = new FormData();
             formData.append('nome_livro', nome_livro);
             formData.append('nome_autor', nome_autor);
             formData.append('isbn', isbn);
+            formData.append('verificados', verificados);
 
             fetch('livro_buscar_cadastrar.php', {
                 method: 'POST',
