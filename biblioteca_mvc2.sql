@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 02/06/2025 às 12:59
+-- Tempo de geração: 17/06/2025 às 14:14
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `biblioteca_mvc`
+-- Banco de dados: `biblioteca_mvc2`
 --
 
 -- --------------------------------------------------------
@@ -30,22 +30,23 @@ SET time_zone = "+00:00";
 CREATE TABLE `alunos` (
   `id` int(11) NOT NULL,
   `nome` varchar(40) NOT NULL,
-  `serie` varchar(2) NOT NULL,
-  `email` varchar(100) NOT NULL
+  `email` varchar(100) NOT NULL,
+  `salas` varchar(50) NOT NULL DEFAULT '',
+  `turno` enum('manhã','tarde','noite') NOT NULL DEFAULT 'manhã'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `alunos`
 --
 
-INSERT INTO `alunos` (`id`, `nome`, `serie`, `email`) VALUES
-(1, 'duda', '3D', 'igorbizarro@hotmail.com'),
-(7, 'Maria Eduarda Mota Dias', '3B', '00001102613800p@al.educacao.sp.gov.br'),
-(8, 'Grasiella Cirilo ', '3D', 'grasizinha008@gmail.com'),
-(9, 'João Pedro ', '3D', 'joaozinhopretinho@gmail.com'),
-(10, 'Fernando Pinto', '5D', 'fernandinhopintinho69@gmail.com'),
-(11, 'Igor Rafael Moreira Borges da Silva', '1D', 'igorbizarro@hotmail.com'),
-(12, 'Ana Diva', '3D', 'anajuliadiva@gmail.com');
+INSERT INTO `alunos` (`id`, `nome`, `email`, `salas`, `turno`) VALUES
+(1, 'duda', 'igorbizarro@hotmail.com', '9C', 'tarde'),
+(7, 'Maria Eduarda Mota Dias', '00001102613800p@al.educacao.sp.gov.br', '3B', 'manhã'),
+(8, 'Grasiella Cirilo ', 'grasizinha008@gmail.com', '3D', 'manhã'),
+(9, 'João Pedro ', 'joaozinhopretinho@gmail.com', '3D', 'manhã'),
+(10, 'Fernando Pinto', 'fernandinhopintinho69@gmail.com', '3G', 'noite'),
+(11, 'Igor Rafael Moreira Borges da Silva', 'igorbizarro@hotmail.com', '7C', 'tarde'),
+(12, 'Ana Diva', 'anajuliadiva@gmail.com', '3D', 'manhã');
 
 -- --------------------------------------------------------
 

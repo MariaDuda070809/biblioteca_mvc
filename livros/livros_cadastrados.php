@@ -15,6 +15,7 @@ $livros = $stmt->fetchAll(); // Armazena os resultados na variável $professores
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Livros Cadastrados</title>
+    <link rel="icon" href="../imagens/icon.jpg" type="image/gif" sizes="16x16" />
 </head>
 <body>
 <div class="container">
