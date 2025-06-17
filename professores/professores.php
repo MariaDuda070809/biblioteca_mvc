@@ -1,40 +1,38 @@
 <?php
 include '../db.php';
 
-// Verifica se os dados foram enviados via POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nome = isset($_POST['nome']) ? $_POST['nome'] : '';
-    $cpf = isset($_POST['cpf']) ? $_POST['cpf'] : '';
-    $senha = isset($_POST['senha']) ? $_POST['senha'] : '';
-    $email = isset($_POST['email']) ? $_POST['email'] : '';
+    $nome = $_POST['nome'] ?? '';
+    $cpf = $_POST['cpf'] ?? '';
+    $senha = $_POST['senha'] ?? '';
+    $email = $_POST['email'] ?? '';
+} else {
+    header('Location: indexProfessores.php');
+    exit;
+}
+
+// Verifica se campos estão vazios
+if ($nome == '' || $cpf == '' || $senha == '' || $email == '') {
+    header('Location: indexProfessores.php?msg=' . urlencode('Por favor, preencha todos os campos.'));
+    exit;
 }
 
 $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
 
-// Verifica se os campos obrigatórios não estão vazios
-if ($nome == '' || $cpf == '' || $senha == '' || $email == '') {
-    echo "Por favor, preencha todos os campos.";
-    exit;
-}
-
-global $pdo;
+// Limpa CPF, deixa só números
+$cpfLimpo = preg_replace('/\D/', '', $cpf);
 
 try {
+    global $pdo;
     $sql = "INSERT INTO professores (nome, cpf, senha, email) VALUES (?, ?, ?, ?)";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([$nome, $cpf, $senhaHash, $email]);
+    // **Aqui deve usar $cpfLimpo para salvar no banco**
+    $stmt->execute([$nome, $cpfLimpo, $senhaHash, $email]);
 
-    // Alerta de sucesso e redirecionamento
-    echo "<script>
-        alert('Professor cadastrado com sucesso!');
-        window.location.href = 'indexProfessores.php';
-    </script>";
+    header('Location: indexProfessores.php?msg=' . urlencode('Professor cadastrado com sucesso!'));
+    exit;
 
 } catch (PDOException $e) {
-    // Alerta de erro e redirecionamento
-    echo "<script>
-        alert('Erro ao cadastrar professor: " . $e->getMessage() . "');
-        window.location.href = 'indexProfessores.php';
-    </script>";
+    header('Location: indexProfessores.php?msg=' . urlencode('Erro ao cadastrar professor: ' . $e->getMessage()));
+    exit;
 }
-?>
