@@ -8,21 +8,18 @@ include '../db.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST['email']);
     $senha = trim($_POST['senha']);
-    $conn = new mysqli("localhost", "root", "", "biblioteca_mvc");
+  
+    $sql = "SELECT * FROM professores WHERE email = :email";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
 
-    if ($conn->connect_error) {
-        die("Falha na conexão: " . $conn->connect_error);
-    }
+    if ($stmt->rowCount() > 0) {
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $sql = "SELECT * FROM professores WHERE email = '$email'";
-    $result = $conn->query($sql);
-    
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-
-        $tr=password_verify($senha, $row['senha']);
+        $tr = password_verify($senha, $row['senha']);
         var_dump($row['senha']);
-
+    }
 
         // Comparar a senha diretamente, pois não está usando hash
         if ($tr) {
@@ -30,7 +27,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['email'] = $row['email'];
             $_SESSION['username'] = $row['nome'];
             $_SESSION['id'] = $row['id'];
-            //var_dump($row['nome']);
             header("Location: ../dashboard.php");
             exit();
         } else {
@@ -40,8 +36,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Usuário não encontrado!";
     }
     
-    $conn->close();
-}
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="../imagens/icon.jpg" type="image/gif" sizes="16x16" />
 </head>
 <body>
 <div class="container">

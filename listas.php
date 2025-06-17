@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastros</title>
+    <link rel="icon" href="../imagens/icon.jpg" type="image/gif" sizes="16x16" />
 
 </head>
 <body>
 
     <div class="button-container">
         <h2>Listas Gerais:</h2>
+        
         <ul>
             <li><a href="livros/livros_cadastrados.php" class="btn-link">Livros Cadastrados</a></li>
             <li><a href="alunos/listar_alunos.php" class="btn-link">Lista de Alunos</a></li>

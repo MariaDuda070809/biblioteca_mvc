@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Empréstimos por Turno</title>
+    <link rel="icon" href="../imagens/icon.jpg" type="image/gif" sizes="16x16" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <a href="../listas.php" class="back-button">

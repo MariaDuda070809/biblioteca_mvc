@@ -31,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8" />
     <title>Biblioteca - Buscar e Cadastrar Livro</title>
+    <link rel="icon" href="../imagens/icon.jpg" type="image/gif" sizes="16x16" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
        body {
