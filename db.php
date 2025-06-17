@@ -7,8 +7,8 @@ $pass = "";            // Senha do banco de dados (em geral, para o MySQL local 
 $dbname = "biblioteca_mvc2";   // Nome do banco de dados
 
 try {
-    $conn = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     die("Erro na conexão: " . $e->getMessage());
 }

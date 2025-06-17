@@ -42,7 +42,7 @@ $alunos = $stmt->fetchAll(); // Armazena os resultados na variável $professores
                 <tr>
                     <td><?php echo $alunos['id']; ?></td>
                     <td><?php echo htmlspecialchars($alunos['nome']); ?></td>
-                    <td><?php echo htmlspecialchars($alunos['serie']); ?></td>
+                    <td><?php echo htmlspecialchars($alunos['salas']); ?></td>
                     <td><?php echo htmlspecialchars($alunos['email']); ?></td>
                 </tr>
             <?php endforeach; 

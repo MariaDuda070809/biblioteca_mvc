@@ -4,7 +4,7 @@ require '../db.php';
 $sql = "SELECT 
     e.id AS id, 
     a.nome AS aluno_nome, 
-    a.serie AS serie,
+    a.salas AS salas,
     a.email AS email,
     p.nome AS professor_nome, 
     l.nome_livro AS livro_nome,
@@ -38,7 +38,7 @@ $emprestimos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <tr>
             <th>ID</th>
             <th>Aluno</th>
-            <th>Série</th>
+            <th>Sala</th>
             <th>Email</th>
             <th>Livro</th>
             <th>Professor</th>
@@ -59,7 +59,7 @@ $emprestimos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <tr id="linha-<?php echo $emprestimo['id']; ?>">
             <td><?php echo $emprestimo['id']; ?></td>
             <td><?php echo htmlspecialchars($emprestimo['aluno_nome']); ?></td>
-            <td><?php echo htmlspecialchars($emprestimo['serie']); ?></td>
+            <td><?php echo htmlspecialchars($emprestimo['salas']); ?></td>
             <td><?php echo htmlspecialchars($emprestimo['email']); ?></td>
             <td><?php echo htmlspecialchars($emprestimo['livro_nome']); ?></td>
             <td><?php echo htmlspecialchars($emprestimo['professor_nome']); ?></td>
