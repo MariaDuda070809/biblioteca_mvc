@@ -8,7 +8,7 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
+      background-color:rgb(255, 254, 242);
       padding: 20px;
       text-align: center;
     }
@@ -21,12 +21,12 @@
       font-weight: bold;
       border: none;
       border-radius: 8px;
-      background-color: #1a73e8;
+      background-color:rgb(255, 138, 235);
       color: white;
       cursor: pointer;
     }
     .btn-container button:hover, .btn-container-turno button:hover {
-      background-color: #155ab6;
+      background-color:rgb(236, 58, 227);
     }
     .grafico {
       display: none;
@@ -71,10 +71,10 @@
   <h2>Gráficos da Biblioteca</h2>
 
   <div class="btn-container">
-    <button onclick="mostrarGrafico('grafico-turno')">📊 Empréstimos por Turno</button>
-    <button onclick="mostrarGrafico('grafico-salas')">🏫 Empréstimos por Sala</button>
-    <button onclick="mostrarGrafico('grafico-ranking')">🥇 Ranking de Alunos</button>
-    <button onclick="mostrarGrafico('grafico-livros')">📚 Livros Mais Lidos</button>
+    <button onclick="mostrarGrafico('grafico-turno')">Empréstimos por Turno</button>
+    <button onclick="mostrarGrafico('grafico-salas')"> Empréstimos por Sala</button>
+    <button onclick="mostrarGrafico('grafico-ranking')"> Ranking de Alunos</button>
+    <button onclick="mostrarGrafico('grafico-livros')"> Livros Mais Lidos</button>
   </div>
 
   <!-- Gráfico Pizza Turnos -->
@@ -136,8 +136,8 @@
         labels: data.map(d => d.turno),
         datasets: [{
           data: data.map(d => d.total),
-          backgroundColor: ['rgba(255,99,132,0.6)', 'rgba(54,162,235,0.6)', 'rgba(255,206,86,0.6)'],
-          borderColor: ['rgba(255,99,132,1)', 'rgba(54,162,235,1)', 'rgba(255,206,86,1)'],
+          backgroundColor: ['rgba(212, 8, 96, 0.6)', 'rgba(241, 39, 170, 0.6)', 'rgba(201, 8, 235, 0.6)'],
+          borderColor: ['rgba(168, 7, 77, 0.6)', 'rgb(165, 26, 119)', 'rgba(119, 14, 176, 0.6)'],
           borderWidth: 1
         }]
       },
@@ -167,8 +167,8 @@
         labels: data.map(d => d.salas),
         datasets: [{
           data: data.map(d => Number(d.total)),
-          backgroundColor: 'rgba(54,162,235,0.6)',
-          borderColor: 'rgba(54,162,235,1)',
+          backgroundColor: 'rgba(236, 2, 177, 0.6)',
+          borderColor: 'rgb(164, 3, 140)',
           borderWidth: 1
         }]
       },
