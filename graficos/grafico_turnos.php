@@ -1,154 +1,238 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Empréstimos por Turno</title>
-    <link rel="icon" href="../imagens/icon.jpg" type="image/gif" sizes="16x16" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <a href="../listas.php" class="back-button">
-    <button class="btn">🡸</button>
-  </a>
-    <style>
+  <meta charset="UTF-8" />
+  <title>Gráficos Biblioteca</title>
+  <link rel="icon" href="../imagens/icon.jpg" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
     body {
-        font-family: Arial, sans-serif;
-        background-color: #f2f2f2;
-        margin: 0;
-        padding: 20px;
-        color: #333;
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      padding: 20px;
+      text-align: center;
     }
-
-    h2 {
-        text-align: center;
-        margin-bottom: 30px;
-        color: #1a73e8;
+    .btn-container, .btn-container-turno {
+      margin-bottom: 20px;
     }
-
-    #graficoTurno {
-        display: block;
-        margin: 0 auto 30px auto;
-        max-width: 600px;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    .btn-container button, .btn-container-turno button {
+      margin: 5px;
+      padding: 10px 20px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      background-color: #1a73e8;
+      color: white;
+      cursor: pointer;
     }
-
-    #salas, #alunos {
-        max-width: 600px;
-        margin: 20px auto;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 0 0 8px rgba(0,0,0,0.08);
+    .btn-container button:hover, .btn-container-turno button:hover {
+      background-color: #155ab6;
     }
-
-    h3, h4 {
-        color: #333;
-        margin-top: 0;
+    .grafico {
+      display: none;
+      max-width: 800px;
+      margin: 0 auto;
     }
-
-    ul, ol {
-        padding-left: 20px;
+    .grafico canvas, .grafico table {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
     }
-
-    li {
-        margin-bottom: 8px;
+    .grafico canvas {
+      height: 400px;
     }
-
-    a {
-        color: #1a73e8;
-        text-decoration: none;
-        font-weight: bold;
+    .ativo {
+      display: block;
     }
-
-    a:hover {
-        text-decoration: underline;
+    #graficoPizzaTurnos {
+      max-width: 400px;
+      margin: 0 auto;
     }
-</style>
-
+    table.ranking-table, table.livros-table {
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    table.ranking-table th, table.ranking-table td,
+    table.livros-table th, table.livros-table td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    table.ranking-table th, table.livros-table th {
+      background-color: #f0f0f0;
+    }
+    .livro-ouro { color: gold; }
+    .livro-prata { color: silver; }
+    .livro-bronze { color: #cd7f32; }
+    .livro-normal { color: black; }
+  </style>
 </head>
 <body>
-    <h2>Empréstimos por Turno</h2>
-    <canvas id="graficoTurno" width="400" height="200"></canvas>
+  <h2>Gráficos da Biblioteca</h2>
 
-    <div id="salas"></div>
-    <div id="alunos"></div>
+  <div class="btn-container">
+    <button onclick="mostrarGrafico('grafico-turno')">📊 Empréstimos por Turno</button>
+    <button onclick="mostrarGrafico('grafico-salas')">🏫 Empréstimos por Sala</button>
+    <button onclick="mostrarGrafico('grafico-ranking')">🥇 Ranking de Alunos</button>
+    <button onclick="mostrarGrafico('grafico-livros')">📚 Livros Mais Lidos</button>
+  </div>
 
-    <script>
-    function carregarGrafico() {
-        fetch('dados_turnos.php')
-            .then(res => res.json())
-            .then(data => {
-                if (!data || data.length === 0) {
-                    document.getElementById('graficoTurno').outerHTML = "<p>Nenhum dado de empréstimo por turno disponível.</p>";
-                    return;
-                }
+  <!-- Gráfico Pizza Turnos -->
+  <div id="grafico-turno" class="grafico ativo">
+    <canvas id="graficoPizzaTurnos"></canvas>
+  </div>
 
-                const ctx = document.getElementById('graficoTurno').getContext('2d');
-                const labels = data.map(d => d.turno);
-                const values = data.map(d => d.total);
+  <!-- Gráfico Empréstimos por Sala -->
+  <div id="grafico-salas" class="grafico">
+    <div class="btn-container-turno">
+      <button onclick="criarGraficoSalas('manhã')">Manhã</button>
+      <button onclick="criarGraficoSalas('tarde')">Tarde</button>
+      <button onclick="criarGraficoSalas('noite')">Noite</button>
+    </div>
+    <canvas id="graficoSalasTurnos"></canvas>
+  </div>
 
-                const chart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: labels,
-                        datasets: [{
-                            label: 'Total de Empréstimos',
-                            data: values,
-                            backgroundColor: 'rgba(54, 162, 235, 0.6)'
-                        }]
-                    },
-                    options: {
-                        onClick: (e, elements) => {
-                            if (elements.length > 0) {
-                                const turno = chart.data.labels[elements[0].index];
-                                carregarSalas(turno);
-                            }
-                        }
-                    }
-                });
-            })
-            .catch(error => {
-                console.error('Erro ao carregar dados dos turnos:', error);
-                document.getElementById('graficoTurno').outerHTML = "<p>Erro ao carregar os dados.</p>";
-            });
+  <!-- Ranking de alunos -->
+  <div id="grafico-ranking" class="grafico">
+    <canvas id="graficoRankingTurnos"></canvas>
+    <table class="ranking-table" id="tabelaRankingAlunos">
+      <thead>
+        <tr><th>Posição</th><th>Nome</th><th>Sala</th><th>Empréstimos</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- Livros mais lidos -->
+  <div id="grafico-livros" class="grafico">
+    <h3>Livros Mais Lidos - 1º Bimestre</h3>
+    <table class="livros-table" id="tabelaLivrosMaisLidos">
+      <thead>
+        <tr><th>Posição</th><th>Livro</th><th>Total Empréstimos</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+<script>
+  function mostrarGrafico(id) {
+    document.querySelectorAll('.grafico').forEach(div => div.classList.remove('ativo'));
+    document.getElementById(id).classList.add('ativo');
+    if (id === 'grafico-ranking') carregarRankingPorTurno();
+    if (id === 'grafico-livros') carregarLivrosMaisLidos();
+  }
+
+  // Gráfico Pizza Empréstimos por Turno
+  async function carregarGraficoPizzaTurnos() {
+    const res = await fetch('dados_pizza_turnos.php');
+    const data = await res.json();
+    const ctx = document.getElementById('graficoPizzaTurnos').getContext('2d');
+    if (window.graficoPizzaTurnos && typeof window.graficoPizzaTurnos.destroy === 'function') {
+      window.graficoPizzaTurnos.destroy();
     }
+    window.graficoPizzaTurnos = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: data.map(d => d.turno),
+        datasets: [{
+          data: data.map(d => d.total),
+          backgroundColor: ['rgba(255,99,132,0.6)', 'rgba(54,162,235,0.6)', 'rgba(255,206,86,0.6)'],
+          borderColor: ['rgba(255,99,132,1)', 'rgba(54,162,235,1)', 'rgba(255,206,86,1)'],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        cutout: '30%',
+        plugins: {
+          legend: { position: 'bottom' },
+          title: { display: true, text: 'Empréstimos por Turno - Bimestre Atual' }
+        }
+      }
+    });
+  }
 
-    function carregarSalas(turno) {
-        fetch('dados_salas.php?turno=' + encodeURIComponent(turno))
-            .then(res => res.json())
-            .then(data => {
-                let html = `<h3>Salas do turno ${turno}</h3><ul>`;
-                data.forEach(s => {
-                    html += `<li><a href="#" onclick="carregarAlunos('${turno}', '${s.salas}')">${s.salas}</a> - ${s.total} empréstimos</li>`;
-                });
-                html += '</ul>';
-                document.getElementById('salas').innerHTML = html;
-                document.getElementById('alunos').innerHTML = '';
-            })
-            .catch(error => {
-                console.error('Erro ao carregar salas:', error);
-                document.getElementById('salas').innerHTML = '<p>Erro ao carregar salas.</p>';
-            });
+  // Gráfico Empréstimos por Sala
+  async function criarGraficoSalas(turno) {
+    const res = await fetch(`dados_salas_por_turno.php?turno=${encodeURIComponent(turno)}`);
+    const data = await res.json();
+    if (!data.length) return alert(`Nenhum dado para turno ${turno}`);
+    const ctx = document.getElementById('graficoSalasTurnos').getContext('2d');
+    if (window.graficoSalas && typeof window.graficoSalas.destroy === 'function') {
+      window.graficoSalas.destroy();
     }
+    window.graficoSalas = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: data.map(d => d.salas),
+        datasets: [{
+          data: data.map(d => Number(d.total)),
+          backgroundColor: 'rgba(54,162,235,0.6)',
+          borderColor: 'rgba(54,162,235,1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true, title: { display: true, text: 'Número de Empréstimos' } },
+          x: { title: { display: true, text: 'Salas' } }
+        }
+      }
+    });
+  }
 
-    function carregarAlunos(turno, salas) {
-        fetch(`dados_alunos.php?turno=${encodeURIComponent(turno)}&salas=${encodeURIComponent(salas)}`)
-            .then(res => res.json())
-            .then(data => {
-                let html = `<h4>Alunos da sala ${salas} (${turno})</h4><ol>`;
-                data.forEach(a => {
-                    html += `<li>${a.nome} - ${a.total} empréstimos</li>`;
-                });
-                html += '</ol>';
-                document.getElementById('alunos').innerHTML = html;
-            })
-            .catch(error => {
-                console.error('Erro ao carregar alunos:', error);
-                document.getElementById('alunos').innerHTML = '<p>Erro ao carregar alunos.</p>';
-            });
+  // Ranking de alunos com tabela
+  async function carregarRankingPorTurno() {
+    const res = await fetch('dados_ranking_alunos.php');
+    const data = await res.json();
+    const turnos = ['manhã', 'tarde', 'noite'];
+    const somaPorTurno = turnos.map(t => data.filter(a => a.turno === t).reduce((acc, cur) => acc + Number(cur.total), 0));
+    const ctx = document.getElementById('graficoRankingTurnos').getContext('2d');
+    if (window.graficoRankingTurnos && typeof window.graficoRankingTurnos.destroy === 'function') {
+      window.graficoRankingTurnos.destroy();
     }
+    window.graficoRankingTurnos = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: turnos.map(t => t.charAt(0).toUpperCase() + t.slice(1)),
+        datasets: [{ data: somaPorTurno, backgroundColor: ['#FF6384','#36A2EB','#FFCE56'] }]
+      },
+      options: {
+        responsive: true,
+        onClick: (evt, elems) => { if (elems.length) exibirTabelaRanking(turnos[elems[0].index], data); }
+      }
+    });
+    exibirTabelaRanking('manhã', data); // exibe padrão manhã
+  }
 
-    carregarGrafico();
+  function exibirTabelaRanking(turno, data) {
+    const tbody = document.querySelector('#tabelaRankingAlunos tbody');
+    tbody.innerHTML = '';
+    const rows = data.filter(a => a.turno === turno).sort((a, b) => b.total - a.total).slice(0,3);
+    rows.forEach((a,i) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${i+1}</td><td>${a.nome}</td><td>${a.salas}</td><td>${a.total}</td>`;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // Tabela Livros mais lidos
+  async function carregarLivrosMaisLidos() {
+    const res = await fetch('dados_livro_mais_lido.php');
+    const data = await res.json();
+    const tbody = document.querySelector('#tabelaLivrosMaisLidos tbody');
+    tbody.innerHTML = '';
+    data.forEach((l, i) => {
+      const tr = document.createElement('tr');
+      const cls = i === 0 ? 'livro-ouro' : i === 1 ? 'livro-prata' : i === 2 ? 'livro-bronze' : 'livro-normal';
+      tr.innerHTML = `<td>${i+1}</td><td class="${cls}">${l.nome_livro}</td><td>${l.total}</td>`;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // Inicialização
+  carregarGraficoPizzaTurnos();
 </script>
+</body>
+</html>
