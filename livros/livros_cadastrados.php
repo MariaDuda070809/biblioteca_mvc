@@ -16,7 +16,7 @@ $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="icon" href="../imagens/icon.jpg" type="image/gif" sizes="16x16" />
     <style>
         body {
-            background-color: #fff0f5;
+            background-color:rgb(235, 185, 255);
             font-family: 'Segoe UI', sans-serif;
             margin: 0;
             padding: 0;
@@ -33,7 +33,8 @@ $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         h3 {
             text-align: center;
-            color: #c71585;
+            font-size: 28px;
+            color:rgb(126, 15, 160);
             margin-bottom: 20px;
         }
 
@@ -57,12 +58,12 @@ $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         .table-pink th, .table-pink td {
             padding: 12px;
-            border: 1px solid #f2a3c2;
+            border: 1px solidrgb(101, 19, 179);
             text-align: left;
         }
 
         .table-pink th {
-            background-color: #ffc0cb;
+            background-color:rgb(150, 50, 207);
             color: #333;
         }
 
@@ -77,7 +78,7 @@ $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         .btn {
-            background: #f48fb1;
+            background:rgb(160, 28, 221);
             padding: 10px 16px;
             text-decoration: none;
             color: white;
@@ -87,8 +88,28 @@ $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         .btn:hover {
-            background: #d81b60;
+            background:rgb(98, 12, 133);
         }
+              #btn-voltar {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: rgb(189, 119, 235);
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  z-index: 999;
+}
+
+#btn-voltar:hover {
+  background-color: rgb(100, 5, 129);
+  transform: scale(1.05);
+}
+
     </style>
 </head>
 <body>
@@ -105,6 +126,8 @@ $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <th>ID</th>
                 <th>Nome</th>
                 <th>Autor</th>
+                <th>ISBN</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -114,6 +137,14 @@ $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <td><?= $livro['id']; ?></td>
                         <td><?= htmlspecialchars($livro['nome_livro']); ?></td>
                         <td><?= htmlspecialchars($livro['nome_autor']); ?></td>
+                        <td><?= htmlspecialchars($livro['isbn']); ?></td>
+                         <td>
+        <a class="btn" style="background:rgb(216, 142, 245);" 
+           href="excluir_livros.php?id=<?= $livro['id']; ?>" 
+           onclick="return confirm('Tem certeza que deseja excluir este livro?');">
+            Excluir
+        </a>
+    </td>
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>
@@ -122,9 +153,7 @@ $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </tbody>
     </table>
 
-    <a href="../listas.php" class="btn" style="position: absolute; top: 20px; left:20px;">
-        ←
-    </a>
+      <a href="../listas.php" id="btn-voltar">← Voltar</a>
 </div>
 
 <script>

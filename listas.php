@@ -14,7 +14,7 @@
     }
 
     body {
-      background-image: url('../biblioteca_mvc/imagens/listas.png');
+      background-image: url('../biblioteca_mvc/imagens/cadastros.png');
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
@@ -30,8 +30,8 @@
       background: rgba(255, 255, 255, 0.3);
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
-      border-radius: 22px;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+      border-radius: 16px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35);
       padding: 30px;
       max-width: 600px;
       width: 100%;
@@ -43,8 +43,10 @@
 
     h2 {
       margin-bottom: 10px;
-      color: #fff;
-      font-size: 37px
+      color: black;
+      font-size: 30px;
+      font-weight: 600;
+      text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
     }
 
     ul {
@@ -77,23 +79,24 @@
     }
 
     ul li:nth-child(1) .btn-link {
-      background: linear-gradient(to bottom,rgb(255, 232, 85),rgb(255, 155, 216));
+      background: linear-gradient(to bottom,rgb(193, 139, 255),rgb(168, 56, 243));
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35);
     }
 
     ul li:nth-child(2) .btn-link {
-      background: linear-gradient(to bottom,rgb(255, 117, 25),rgb(255, 241, 89));
+      background: linear-gradient(to bottom,rgb(10, 125, 233),rgb(80, 156, 255));
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35);
     }
 
     ul li:nth-child(3) .btn-link {
-      background: linear-gradient(to bottom,rgb(171, 72, 190),rgb(20, 7, 91));
+      background: linear-gradient(to bottom,rgb(87, 236, 241),rgb(7, 224, 170));
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35);
     }
 
     ul li:nth-child(4) .btn-link {
-      background: linear-gradient(to bottom, #1041E1, #9A00FF);
-    }
-
-    ul li:nth-child(5) .btn-link {
-      background: linear-gradient(to bottom, #00C9A7, #00B3FF);
+      background: linear-gradient(to bottom,rgb(14, 223, 118),rgb(74, 247, 126));
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35);
+     
     }
 
     .btn-link:hover {
@@ -110,38 +113,42 @@
       text-decoration: none;
     }
 
-    .btn {
-      background-color: #D70000;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      padding: 10px 16px;
-      font-size: 18px;
-      cursor: pointer;
-      transition: transform 0.2s ease-in-out;
-    }
+         #btn-voltar {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: rgb(129, 28, 160);
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  z-index: 999;
+}
 
-    .btn:hover {
-      transform: scale(1.15);
-    }
+#btn-voltar:hover {
+  background-color: rgb(54, 8, 68);
+  transform: scale(1.05);
+}
+
   </style>
 </head>
 <body>
 
   <!-- Botão de voltar no canto -->
-  <a href="dashboard.php" class="back-button">
-    <button class="btn">←</button>
-  </a>
+    <a href="./dashboard.php" id="btn-voltar">← Voltar</a>
 
   <!-- Conteúdo central -->
   <div class="button-container">
-    <h2>Informações Gerais:</h2>
+    <h2>Painel informativo:</h2>
     <ul>
-      <li><a href="livros/livros_cadastrados.php" class="btn-link">Livros Cadastrados</a></li>
-      <li><a href="alunos/listar_alunos.php" class="btn-link">Lista de Alunos</a></li>
-      <li><a href="professores/listar_professores.php" class="btn-link">Lista de Professores</a></li>
-      <li><a href="emprestimo/lista_emprestimo.php" class="btn-link">Empréstimos Cadastrados</a></li>
-      <li><a href="graficos/grafico_turnos.php" class="btn-link">Relatório de Empréstimos</a></li>
+      <li><a href="livros/livros_cadastrados.php" class="btn-link">Livros</a></li>
+      <li><a href="alunos/listar_alunos.php" class="btn-link">Alunos</a></li>
+      <li><a href="professores/listar_professores.php" class="btn-link">Professores</a></li>
+      <li><a href="emprestimo/lista_emprestimo.php" class="btn-link">Empréstimos</a></li>
+    
     </ul>
   </div>
 

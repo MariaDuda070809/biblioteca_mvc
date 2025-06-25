@@ -71,6 +71,27 @@ button:hover, .btn:hover {
       background-color:rgb(26, 72, 255);
       color: white;
     }
+
+          #btn-voltar {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: rgb(119, 182, 235);
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  z-index: 999;
+}
+
+#btn-voltar:hover {
+  background-color: rgb(26, 79, 179);
+  transform: scale(1.05);
+}
+
   </style>
 </head>
 <body>
@@ -96,8 +117,7 @@ button:hover, .btn:hover {
       <button type="submit">Cadastrar</button>
     </form>
   </div>
-  <a href="../cadastro.php" class="back-button">
-    <button class="btn">🡸</button>
+  <a href="../cadastro.php" id="btn-voltar">← Voltar</a>
   </a>
 </body>
 </html>
