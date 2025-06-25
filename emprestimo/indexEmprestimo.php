@@ -2,13 +2,14 @@
 include '../db.php';
 session_start();
 
+$mensagemSucesso = '';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $aluno_id = $_POST['aluno_id'];
     $livro_id = $_POST['livro_id'];
     $data_retirada = $_POST['data_retirada'];
     $data_devolucao = $_POST['data_devolucao'];
     $professor_id = $_SESSION['id'];
-
     $hoje = date('Y-m-d');
 
     if ($data_retirada !== $hoje) {
@@ -20,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt = $pdo->prepare($sql);
 
         if ($stmt->execute([$aluno_id, $livro_id, $data_retirada, $data_devolucao, $professor_id])) {
-            echo "<script>alert('Empréstimo registrado com sucesso!');</script>";
+            $mensagemSucesso = "Empréstimo registrado com sucesso!";
         } else {
             echo "<script>alert('Erro ao registrar o empréstimo.');</script>";
         }
@@ -37,13 +38,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
     <style>
         body {
             background-image: url('../imagens/emprestimo.jpg');
             background-size: cover;
             background-position: center;
             font-family: 'Merriweather', serif;
-            /* padding: 20px; */
         }
 
         .container {
@@ -72,12 +73,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         .form-select,
         input[type="date"] {
             border-radius: 8px;
-            box-shadow: none;
             border: 1px solid #ddd;
-            padding: 10px 15px;
+            padding: 10px 210px;
             font-size: 14px;
-            font-weight: 400;
-            width: 100%;
             background-color: #fff;
             height: 45px;
             box-sizing: border-box;
@@ -86,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         .form-control:focus,
         .form-select:focus,
         input[type="date"]:focus {
-            border-color:rgb(247, 71, 203);
+            border-color: rgb(247, 71, 203);
             box-shadow: 0 0 5px rgba(180, 5, 122, 0.5);
             outline: none;
         }
@@ -101,7 +99,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             cursor: pointer;
             width: 100%;
             transition: transform 0.2s ease-in-out, background 0.3s;
-            text-decoration: none;
             margin: 20px 0;
         }
 
@@ -110,26 +107,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             color: black;
         }
 
-        .btn-back {
-            background-color: white;
-            border: none;
-            padding: 10px 15px;
-            font-size: 18px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            font-weight: 900;
-            font-family: 'Arial Black', Arial, sans-serif;
-            text-decoration: none;
-            color: black;
-            position: fixed;
+        #btn-voltar {
+            position: absolute;
             top: 20px;
             left: 20px;
+            background-color: rgb(212, 6, 126);
+            color: white;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.2s ease-in-out;
             z-index: 999;
         }
 
-        .btn-back:hover {
-            background-color:rgb(247, 71, 203);
+        #btn-voltar:hover {
+            background-color: rgb(129, 0, 86);
+            transform: scale(1.05);
         }
 
         .select2-container--default .select2-selection--single {
@@ -146,49 +141,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         .select2-container--default .select2-selection--single .select2-selection__rendered {
             color: #555;
-            line-height: normal !important;
             font-size: 20px;
             font-weight: 500;
-        }
-
-        .select2-container--default .select2-selection--single .select2-selection__arrow {
-            height: 100%;
         }
 
         .select2-container {
             width: 100% !important;
         }
-         #btn-voltar {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  background-color: rgb(212, 6, 126);
-  color: white;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  text-decoration: none;
-  transition: all 0.2s ease-in-out;
-  z-index: 999;
-}
 
-#btn-voltar:hover {
-  background-color: rgb(129, 0, 86);
-  transform: scale(1.05);
-}
+        .mensagem-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #d4edda;
+            color: #155724;
+            padding: 20px 30px;
+            border: 2px solid #c3e6cb;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            z-index: 9999;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            animation: fadeInOut 3s ease-in-out;
+        }
 
-
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; }
+        }
     </style>
 </head>
 <body>
 
-<!-- Botão de voltar -->
-  <a href="../dashboard.php" id="btn-voltar">← Voltar</a>
+<a href="../dashboard.php" id="btn-voltar">← Voltar</a>
 
 <div class="container">
     <h2 class="text-center">Ficha de Controle Empréstimo de Livro Sala de Leitura</h2>
-    <form action="../emprestimo/indexEmprestimo.php" method="POST">
+    <form action="indexEmprestimo.php" method="POST">
         <div class="mb-3">
             <label for="aluno_id" class="form-label">Aluno:</label>
             <select name="aluno_id" id="aluno_id" class="form-select" required></select>
@@ -213,6 +205,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </form>
 </div>
 
+<!-- Mensagem de sucesso -->
+<?php if (!empty($mensagemSucesso)): ?>
+    <div id="mensagem-sucesso" class="mensagem-popup"><?= $mensagemSucesso ?></div>
+    <script>
+        setTimeout(() => {
+            const msg = document.getElementById('mensagem-sucesso');
+            if (msg) msg.style.display = 'none';
+        }, 3000);
+    </script>
+<?php endif; ?>
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
@@ -220,26 +223,14 @@ $(document).ready(function () {
     function initSelect2(selector, url, placeholderText) {
         $(selector).select2({
             placeholder: placeholderText,
-            allowClear: false,
             ajax: {
                 url: url,
                 dataType: 'json',
                 delay: 250,
-                data: function (params) {
-                    return {
-                        term: params.term
-                    };
-                },
-                processResults: function (data) {
-                    return {
-                        results: data.map(function (item) {
-                            return {
-                                id: item.id,
-                                text: item.text
-                            };
-                        })
-                    };
-                },
+                data: params => ({ term: params.term }),
+                processResults: data => ({
+                    results: data.map(item => ({ id: item.id, text: item.text }))
+                }),
                 cache: true
             },
             minimumInputLength: 1,
@@ -254,6 +245,5 @@ $(document).ready(function () {
     initSelect2('#livro_id', 'buscar_livros.php', 'Digite o nome do livro');
 });
 </script>
-
 </body>
 </html>
