@@ -39,20 +39,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <style>
         body {
-            background-image: url('../imagens/luna.jpg');
+            background-image: url('../imagens/emprestimo.jpg');
             background-size: cover;
             background-position: center;
             font-family: 'Merriweather', serif;
-            padding: 50px;
+            /* padding: 20px; */
         }
 
         .container {
-            background-color: rgba(255, 255, 255, 0.75);
+            background-color: rgba(255, 255, 255, 0.60);
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             max-width: 600px;
-            margin: 0 auto;
+            margin: 50px auto;
         }
 
         .container h2 {
@@ -86,13 +86,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         .form-control:focus,
         .form-select:focus,
         input[type="date"]:focus {
-            border-color: #4a90e2;
-            box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+            border-color:rgb(247, 71, 203);
+            box-shadow: 0 0 5px rgba(180, 5, 122, 0.5);
             outline: none;
         }
 
         .btn-gradient {
-            background: linear-gradient(to bottom, #1041E1, rgb(105, 146, 235));
+            background: linear-gradient(to bottom, rgb(247, 71, 203), rgb(180, 5, 122, 0.5));
             border: none;
             padding: 10px 20px;
             color: rgb(0, 0, 0);
@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         .btn-back {
-            background-color: #ddd;
+            background-color: white;
             border: none;
             padding: 10px 15px;
             font-size: 18px;
@@ -129,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         .btn-back:hover {
-            background-color: #bbb;
+            background-color:rgb(247, 71, 203);
         }
 
         .select2-container--default .select2-selection--single {
@@ -158,12 +158,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         .select2-container {
             width: 100% !important;
         }
+         #btn-voltar {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: rgb(212, 6, 126);
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  z-index: 999;
+}
+
+#btn-voltar:hover {
+  background-color: rgb(129, 0, 86);
+  transform: scale(1.05);
+}
+
+
     </style>
 </head>
 <body>
 
 <!-- Botão de voltar -->
-<a href="../dashboard.php" class="btn-back">🡸</a>
+  <a href="../dashboard.php" id="btn-voltar">← Voltar</a>
 
 <div class="container">
     <h2 class="text-center">Ficha de Controle Empréstimo de Livro Sala de Leitura</h2>

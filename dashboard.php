@@ -93,19 +93,23 @@
     }
 
     ul li:nth-child(1) .btn-link {
-      background: linear-gradient(to bottom, #FF00BC, #E60000);
+      background: linear-gradient(to bottom,rgb(248, 84, 204),rgb(194, 18, 156));
     }
 
     ul li:nth-child(2) .btn-link {
-      background: linear-gradient(to bottom, #FF7700, #EFD007);
+      background: linear-gradient(to bottom,rgb(164, 31, 197),rgb(69, 8, 104));
     }
 
     ul li:nth-child(3) .btn-link {
-      background: linear-gradient(to bottom, #4FC94B, #00DEFF);
+      background: linear-gradient(to bottom,rgb(21, 1, 110),rgb(5, 96, 138));
     }
 
     ul li:nth-child(4) .btn-link {
-      background: linear-gradient(to bottom, #1041E1, #9A00FF);
+      background: linear-gradient(to bottom,rgb(19, 139, 99),rgb(128, 243, 180));
+    }
+
+    ul li:nth-child(5) .btn-link {
+      background: linear-gradient(to bottom,rgb(255, 230, 8),rgb(238, 117, 3));
     }
 
     ul li .btn-link:hover {
@@ -144,10 +148,10 @@
 
     <ul>
       <li><a href="emprestimo/indexEmprestimo.php" class="btn-link">Empréstimo de Livro</a></li>
-      <li><a href="cadastro.php" class="btn-link">Cadastros</a></li>
       <li><a href="livros/livro_buscar_cadastrar.php" class="btn-link">Buscar Livro</a></li>
       <li><a href="graficos/grafico_turnos.php" class="btn-link">Relatório de Empréstimos</a></li>
-      <li><a href="listas.php" class="btn-link">Cadastros</a></li>
+      <li><a href="listas.php" class="btn-link">Painel informativo</a></li>
+       <li><a href="cadastro.php" class="btn-link">Cadastros</a></li>
     </ul>
 
     <a href="logout.php" class="logout">Sair</a>

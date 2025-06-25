@@ -37,7 +37,7 @@ $emprestimos = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="icon" href="../imagens/icon.jpg" type="image/gif" />
     <style>
     body {
-        background-color: rgb(255, 218, 248);
+        background-color: rgb(206, 252, 214);
         font-family: 'Segoe UI', sans-serif;
         margin: 0;
         padding: 20px;
@@ -86,7 +86,7 @@ $emprestimos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     /* Botão voltar e filtros */
     .btn {
-        background: #e91e63;
+        background:rgb(47, 218, 113);
         padding: 8px 14px;
         color: white;
         border: none;
@@ -96,12 +96,12 @@ $emprestimos = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     .btn:hover {
-        background: #c2185b;
+        background:rgb(26, 184, 97);
     }
 
     /* Botão marcar como devolvido */
     .btn-marcar {
-        background-color:rgb(214, 40, 185);
+        background-color:rgb(48, 218, 133);
         color: white;
         padding: 8px 12px;
         border: none;
@@ -111,7 +111,7 @@ $emprestimos = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     .btn-marcar:hover {
-        background-color:rgb(180, 11, 124);
+        background-color:rgb(36, 155, 72);
     }
 
     /* Status */
@@ -125,15 +125,15 @@ $emprestimos = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     .prazo {
-        background-color: #4CAF50; /* verde */
+        background-color:rgb(14, 161, 19); /* verde */
     }
 
     .atrasado {
-        background-color: #f44336; /* vermelho */
+        background-color:rgb(219, 22, 8); /* vermelho */
     }
 
     .devolvido {
-        background-color: #2196F3; /* azul */
+        background-color:rgb(2, 114, 206); /* azul */
     }
 
     /* Filtros e busca */

@@ -57,7 +57,7 @@ function formatCPF($cpf) {
     <link rel="icon" href="../imagens/icon.jpg" type="image/gif" sizes="16x16" />
     <style>
         body {
-            background-color:rgb(255, 218, 248);
+            background-color:rgb(215, 253, 251);
             font-family: 'Segoe UI', sans-serif;
             margin: 0;
             padding: 0;
@@ -72,7 +72,7 @@ function formatCPF($cpf) {
         }
         h3 {
             text-align: center;
-            color:rgb(240, 105, 195);
+            color:rgb(47, 238, 212);
             font-size: 24px;
             margin-bottom: 30px;
         }
@@ -98,7 +98,7 @@ function formatCPF($cpf) {
             text-align: center;
         }
         table th {
-            background-color:rgb(255, 132, 215);
+            background-color:rgb(11, 218, 173);
             color: #fff;
         }
         table tr:nth-child(even) {
@@ -116,25 +116,25 @@ function formatCPF($cpf) {
             border: none;
         }
         .btn-editar {
-            background-color:rgb(255, 84, 199);
+            background-color:rgb(67, 240, 173);
         }
         .btn-editar:hover {
-            background-color:rgb(222, 73, 172);
+            background-color:rgb(27, 190, 128);
         }
         .btn-excluir {
-            background-color:rgb(255, 112, 170);
+            background-color:rgb(81, 240, 205);
         }
         .btn-excluir:hover {
-            background-color:rgb(215, 76, 132);
+            background-color:rgb(18, 153, 146);
         }
         .btn-voltar {
             position: absolute;
             top: 20px;
             left: 20px;
-            background-color:rgb(243, 36, 181);
+            background-color:rgb(36, 243, 226);
         }
         .btn-voltar:hover {
-            background-color:rgb(233, 39, 191);
+            background-color:rgb(14, 165, 165);
         }
         .form-edicao {
             margin-bottom: 30px;
@@ -159,7 +159,7 @@ function formatCPF($cpf) {
             box-sizing: border-box;
         }
         .form-edicao button {
-            background-color:rgb(231, 80, 193);
+            background-color:rgb(80, 231, 223);
             color: white;
             font-weight: bold;
             cursor: pointer;
@@ -167,7 +167,7 @@ function formatCPF($cpf) {
             transition: background-color 0.3s ease;
         }
         .form-edicao button:hover {
-            background-color: rgb(179, 31, 147);
+            background-color: rgb(11, 133, 133);
         }
     </style>
 </head>
