@@ -63,28 +63,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 /* Botão voltar */
-.btn-voltar {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    background-color: rgb(125, 25, 115);
-    color: rgb(236, 233, 238);
-    font-size: 20px;
-    font-weight: bold;
-    padding: 10px 16px;
-    border-radius: 50%;
-    border: 2px solid rgb(125, 25, 115);
-    text-decoration: none;
-    transition: all 0.3s ease;
-    z-index: 1100;
+      #btn-voltar {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: rgb(110, 8, 141);
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  z-index: 999;
 }
 
-.btn-voltar:hover {
-    background-color: rgb(222, 115, 255);
-    color: white;
-    transform: scale(1.1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+#btn-voltar:hover {
+  background-color: rgb(143, 3, 172);
+  transform: scale(1.05);
 }
+
 
 /* Cards de resultado */
 .card {
@@ -145,7 +143,7 @@ h1 {
 </head>
 <body class="container py-5">
 
-<a href="../dashboard.php" class="btn btn-voltar">🡸</a>
+  <a href="../dashboard.php" id="btn-voltar">← Voltar</a>
 
 <div class="content-wrapper container p-4 shadow-lg rounded">
     <h1 class="mb-4 text-center">Biblioteca - Buscar e Cadastrar Livro</h1>

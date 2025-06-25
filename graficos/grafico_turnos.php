@@ -15,19 +15,27 @@
     .btn-container, .btn-container-turno {
       margin-bottom: 20px;
     }
-    .btn-container button, .btn-container-turno button {
-      margin: 5px;
-      padding: 10px 20px;
-      font-weight: bold;
-      border: none;
-      border-radius: 8px;
-      background-color:rgb(255, 138, 235);
-      color: white;
-      cursor: pointer;
-    }
-    .btn-container button:hover, .btn-container-turno button:hover {
-      background-color:rgb(236, 58, 227);
-    }
+    .btn-container button,
+.btn-container-turno button,
+#btn-voltar {
+  margin: 5px;
+  padding: 10px 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  background-color: rgb(119, 182, 235);
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-container button:hover,
+.btn-container-turno button:hover,
+#btn-voltar:hover {
+  background-color: rgb(26, 79, 179);
+  transform: scale(1.05);
+}
+
     .grafico {
       display: none;
       max-width: 800px;
@@ -65,9 +73,34 @@
     .livro-prata { color: silver; }
     .livro-bronze { color: #cd7f32; }
     .livro-normal { color: black; }
+    
+    #btn-voltar {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: rgb(119, 182, 235);
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  z-index: 999;
+}
+
+#btn-voltar:hover {
+  background-color: rgb(26, 79, 179);
+  transform: scale(1.05);
+}
+
+
   </style>
 </head>
 <body>
+  <a href="../dashboard.php" id="btn-voltar">← Voltar</a>
+
+  
   <h2>Gráficos da Biblioteca</h2>
 
   <div class="btn-container">
@@ -136,8 +169,8 @@
         labels: data.map(d => d.turno),
         datasets: [{
           data: data.map(d => d.total),
-          backgroundColor: ['rgba(212, 8, 96, 0.6)', 'rgba(241, 39, 170, 0.6)', 'rgba(201, 8, 235, 0.6)'],
-          borderColor: ['rgba(168, 7, 77, 0.6)', 'rgb(165, 26, 119)', 'rgba(119, 14, 176, 0.6)'],
+          backgroundColor: ['rgba(123, 190, 245, 0.6)', 'rgba(26, 79, 179, 0.6)', 'rgba(7, 0, 112, 0.6)'],
+          borderColor: ['rgba(103, 181, 245, 0.6)', 'rgba(26, 79, 179, 0.6)', 'rgba(6, 5, 109, 0.6)'],
           borderWidth: 1
         }]
       },
@@ -167,8 +200,8 @@
         labels: data.map(d => d.salas),
         datasets: [{
           data: data.map(d => Number(d.total)),
-          backgroundColor: 'rgba(236, 2, 177, 0.6)',
-          borderColor: 'rgb(164, 3, 140)',
+          backgroundColor: 'rgba(2, 64, 236, 0.6)',
+          borderColor: 'rgb(7, 5, 133)',
           borderWidth: 1
         }]
       },

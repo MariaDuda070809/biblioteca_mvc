@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['atualizar'])) {
     $stmt = $pdo->prepare("UPDATE alunos SET nome = ?, salas = ?, email = ? WHERE id = ?");
     $stmt->execute([$nome, $salas, $email, $id]);
 
-    header("Location: alunos_cadastrados.php");
+    header("Location: listar_alunos.php");
     exit();
 }
 
@@ -40,7 +40,7 @@ $alunos = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="icon" href="../imagens/icon.jpg" type="image/gif" sizes="16x16" />
     <style>
         body {
-            background-color:rgb(255, 218, 248);
+            background-color:rgb(197, 212, 255);
             font-family: 'Segoe UI', sans-serif;
             margin: 0;
             padding: 0;
@@ -57,7 +57,7 @@ $alunos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         h3 {
             text-align: center;
-            color: rgb(240, 105, 195);
+            color: rgb(56, 69, 250);
             font-size: 24px;
             margin-bottom: 30px;
         }
@@ -88,7 +88,7 @@ $alunos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         table th {
-            background-color: rgb(255, 132, 215);
+            background-color: rgb(69, 66, 243);
             color: #fff;
         }
 
@@ -107,31 +107,21 @@ $alunos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         .btn-editar {
-            background-color: rgb(255, 84, 199);
+            background-color: rgb(84, 124, 255);
         }
 
         .btn-editar:hover {
-            background-color: rgb(222, 73, 172);
+            background-color: rgb(65, 76, 231);
         }
 
         .btn-excluir {
-            background-color: rgb(255, 112, 170);
+            background-color: rgb(23, 59, 218);
         }
 
         .btn-excluir:hover {
-            background-color:rgb(215, 76, 132);
+            background-color:rgb(19, 5, 145);
         }
 
-        .btn-voltar {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background-color: rgb(243, 36, 181);
-        }
-
-        .btn-voltar:hover {
-            background-color: rgb(233, 39, 191);
-        }
 
         .form-edicao {
             margin-bottom: 30px;
@@ -151,15 +141,35 @@ $alunos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         .form-edicao button {
-            background-color:hsl(315, 92.80%, 61.80%);
+            background-color:hsl(229, 81.10%, 64.70%);
             color: white;
             font-weight: bold;
             cursor: pointer;
         }
 
         .form-edicao button:hover {
-            background-color:rgb(179, 31, 147);
+            background-color:rgb(43, 75, 221);
         }
+              #btn-voltar {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: rgb(72, 69, 228);
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  z-index: 999;
+}
+
+#btn-voltar:hover {
+  background-color: rgb(11, 41, 99);
+  transform: scale(1.05);
+}
+
     </style>
 </head>
 <body>
@@ -218,7 +228,7 @@ $alunos = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </tbody>
         </table>
 
-        <a href="../listas.php" class="btn btn-voltar">← Voltar</a>
+          <a href="../listas.php" id="btn-voltar">← Voltar</a>
     </div>
 
     <script>

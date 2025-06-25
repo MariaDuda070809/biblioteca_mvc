@@ -76,32 +76,30 @@
       text-decoration: none;
     }
 
-    .back-button .btn {
-      background-color:rgb(255, 255, 255);
-      color: black;
-      border-radius: 50%;
-      width: 45px;
-      height: 45px;
-      padding: 0;
-      font-size: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.3s ease;
-      border: none;
-      outline: none;
-    }
+         #btn-voltar {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: rgb(221, 166, 15);
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  z-index: 999;
+}
 
-    .back-button .btn:hover {
-      transform: scale(1.2);
-    }
+#btn-voltar:hover {
+  background-color: rgb(26, 179, 166);
+  transform: scale(1.05);
+}
   </style>
 </head>
 <body>
 
-  <a href="dashboard.php" class="back-button">
-    <button class="btn">🡸</button>
-  </a>
+  <a href="dashboard.php" id="btn-voltar">← Voltar</a>
 
   <div class="container">
     <h2>Escolha uma opção para cadastro:</h2>

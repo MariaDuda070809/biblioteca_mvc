@@ -83,6 +83,27 @@
       background-color: #ff6701;
       transform: scale(1.05);
     }
+
+          #btn-voltar {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: rgb(187, 103, 8);
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  z-index: 999;
+}
+
+#btn-voltar:hover {
+  background-color: rgb(241, 117, 0);
+  transform: scale(1.05);
+}
+
   </style>
 </head>
 
@@ -105,9 +126,7 @@
     </form>
   </div>
 
-  <a href="../cadastro.php" class="back-button">
-    <button class="btn">🡸</button>
-  </a>
+    <a href="../cadastro.php" id="btn-voltar">← Voltar</a>
 
   <!-- Modal para mensagens -->
   <div class="modal-bg" id="modalMsg">
