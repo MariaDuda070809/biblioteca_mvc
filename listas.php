@@ -135,13 +135,13 @@
 
   <!-- Conteúdo central -->
   <div class="button-container">
-    <h2>Informações Gerais:</h2>
+    <h2>Cadastros:</h2>
     <ul>
-      <li><a href="livros/livros_cadastrados.php" class="btn-link">Livros Cadastrados</a></li>
-      <li><a href="alunos/listar_alunos.php" class="btn-link">Lista de Alunos</a></li>
-      <li><a href="professores/listar_professores.php" class="btn-link">Lista de Professores</a></li>
-      <li><a href="emprestimo/lista_emprestimo.php" class="btn-link">Empréstimos Cadastrados</a></li>
-      <li><a href="graficos/grafico_turnos.php" class="btn-link">Relatório de Empréstimos</a></li>
+      <li><a href="livros/livros_cadastrados.php" class="btn-link">Livros</a></li>
+      <li><a href="alunos/listar_alunos.php" class="btn-link">Alunos</a></li>
+      <li><a href="professores/listar_professores.php" class="btn-link">Professores</a></li>
+      <li><a href="emprestimo/lista_emprestimo.php" class="btn-link">Empréstimos</a></li>
+    
     </ul>
   </div>
 

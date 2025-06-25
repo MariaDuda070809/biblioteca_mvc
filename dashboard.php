@@ -146,7 +146,8 @@
       <li><a href="emprestimo/indexEmprestimo.php" class="btn-link">Empréstimo de Livro</a></li>
       <li><a href="cadastro.php" class="btn-link">Cadastros</a></li>
       <li><a href="livros/livro_buscar_cadastrar.php" class="btn-link">Buscar Livro</a></li>
-      <li><a href="listas.php" class="btn-link">Listas Gerais</a></li>
+      <li><a href="graficos/grafico_turnos.php" class="btn-link">Relatório de Empréstimos</a></li>
+      <li><a href="listas.php" class="btn-link">Cadastros</a></li>
     </ul>
 
     <a href="logout.php" class="logout">Sair</a>
