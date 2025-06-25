@@ -105,6 +105,8 @@ $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <th>ID</th>
                 <th>Nome</th>
                 <th>Autor</th>
+                <th>ISBN</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -114,6 +116,14 @@ $livros = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <td><?= $livro['id']; ?></td>
                         <td><?= htmlspecialchars($livro['nome_livro']); ?></td>
                         <td><?= htmlspecialchars($livro['nome_autor']); ?></td>
+                        <td><?= htmlspecialchars($livro['isbn']); ?></td>
+                         <td>
+        <a class="btn" style="background: #e57373;" 
+           href="excluir_livros.php?id=<?= $livro['id']; ?>" 
+           onclick="return confirm('Tem certeza que deseja excluir este livro?');">
+            Excluir
+        </a>
+    </td>
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>
