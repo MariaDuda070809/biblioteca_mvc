@@ -17,10 +17,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif ($data_devolucao < $hoje) {
         echo "<script>alert('Erro: A data de devolução não pode ser anterior a hoje.');</script>";
     } else {
-        $sql = "INSERT INTO emprestimos (aluno_id, livro_id, data_retirada, data_devolucao, professor_id) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO emprestimos (aluno_id, livro_id, data_retirada, data_devolucao, professor_id, status) 
+        VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $pdo->prepare($sql);
 
-        if ($stmt->execute([$aluno_id, $livro_id, $data_retirada, $data_devolucao, $professor_id])) {
+        if ($stmt->execute([$aluno_id, $livro_id, $data_retirada, $data_devolucao, $professor_id, 0])) {
             $mensagemSucesso = "Empréstimo registrado com sucesso!";
         } else {
             echo "<script>alert('Erro ao registrar o empréstimo.');</script>";

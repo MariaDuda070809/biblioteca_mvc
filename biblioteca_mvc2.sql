@@ -58,7 +58,7 @@ CREATE TABLE `emprestimos` (
   `id` int(11) NOT NULL,
   `data_retirada` date NOT NULL,
   `data_devolucao` date NOT NULL,
-  `status` tinyint(1) NOT NULL,
+  `status` tinyint(2) NOT NULL,
   `aluno_id` int(11) NOT NULL,
   `professor_id` int(11) NOT NULL,
   `livro_id` int(11) NOT NULL
@@ -74,34 +74,8 @@ CREATE TABLE `livros` (
   `id` int(11) NOT NULL,
   `nome_livro` varchar(100) NOT NULL,
   `nome_autor` varchar(40) NOT NULL,
-  `isbn` int(13) NOT NULL
+  `isbn` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `livros`
---
-
-INSERT INTO `livros` (`id`, `nome_livro`, `nome_autor`, `isbn`) VALUES
-(4, '1', '1', 0),
-(5, 'é assim que acaba', 'Colleen Hoover', 0),
-(6, 'O Pequeno Princípe', ' Antoine De Saint-exupéry, Jamila Mafra,', 0),
-(7, 'Textos cruéis demais para serem lidos rapidamente – Onde dorme o amor', 'Igor Pires, Gabriela Barreira, Leticia N', 0),
-(8, 'Heróis da fé', 'Orlando Boyer', 0),
-(9, 'Este livro é gay', 'James Dawson', 0),
-(10, 'Até o verão terminar', 'Colleen Hoover', 0),
-(11, 'Heróis da fé', 'James Dawson', 0),
-(12, 'Heróis da fé', 'James Dawson', 0),
-(13, 'O Resto de Mim', 'Ashley Munoz', 0),
-(14, 'Um de nós está mentindo', 'Karen McManus', 2147483647),
-(15, 'Para todos os garotos que já amei', 'Jenny Han', 2147483647),
-(16, 'Em chamas', 'Suzanne Collins', 2147483647),
-(17, 'Sobrevivendo no inferno', 'Racionais MC\'s', 2147483647),
-(18, 'Box Peter Pan', 'J.M. Barrie', 2147483647),
-(19, 'Em chamas', 'Suzanne Collins', 2147483647),
-(20, 'Em chamas', 'Suzanne Collins', 2147483647),
-(21, 'Harry Potter e a Câmara Secreta', 'J.K. Rowling', 2147483647),
-(22, 'ANIMAIS FANTÁSTICOS E ONDE HABITAM: O ROTEIRO ORIGINAL', 'J.K. Rowling', 2147483647),
-(23, 'Em chamas', 'Suzanne Collins', 2147483647);
 
 -- --------------------------------------------------------
 
@@ -134,19 +108,7 @@ CREATE TABLE `professores` (
 --
 
 INSERT INTO `professores` (`id`, `nome`, `cpf`, `senha`, `email`) VALUES
-(57, 'Nersinho', '98765432169', '$2y$10$3GF.EhtZmC802AADei1G6e7hC8CR6.tjC1eAefYIPhc.3bIpFfUt6', 'joaonersinhobroxa@gmail.com'),
-(58, 'Maria Maravilhosa', '25814736900', '$2y$10$LcKitNbOy38K9gD6duzcku6XvP90wTFjfKpZiLVMVxzatmfKUZNie', 'mariaeduardadossantos2008@gmail.com'),
-(59, 'joao', '21212121212', '$2y$10$S4t8f32mw7hnVqIMqHyo3ejfpabqnPhyQRjmS9CwEt.UTBXWMLiBy', 'mariaeduardadossantos2008@gmail.com'),
-(60, 'Fernando ', '12345678900', '$2y$10$iUB56Y0JwlHJ7RHuGHpKse.ScWEjf59US7uGPrRjmxeEoI3V11kta', 'fernandoprofessor2@gmail.com'),
-(61, 'Fernando ', '12345678900', '$2y$10$wGQ8hHfF2OJjVOpC.Pl2FubmJDR3pde6hu75QjvrK6xxDdv28PVq2', 'fernandoprofessor2@gmail.com'),
-(62, 'Fernando ', '12345678900', '$2y$10$yBwQ.o6jCeXC9NbNnp2a5O76J.J5O78ACQGBSMCY3eLNQ0EJ5guKG', 'fernandoprofessor2@gmail.com'),
-(63, 'Fernando ', '11122233345', '$2y$10$d7WNOpDBTHUuC9jMHcq5tu4xNQn70/HqJsijJFeno5WEi0Oruo7Xq', 'mariaeduardadossantos2008@gmail.com'),
-(64, 'Gabriel', '14725836900', '$2y$10$Y9CMUmbtAcfAb0OYZgfCM.vZ5/kEvPrUFO8PWsRU1XbjH26O5yOTi', 'gabrielprofessor1@gmail.com'),
-(65, 'Gabriel', '12345678900', '$2y$10$fZcp0ReBKRAh6rgK3IbhiucC2EqGyZEd6ehg8gIkHsCyBg5dLc71q', 'mariaeduardadossantos2008@gmail.com'),
-(66, 'Gabriel', '12345678900', '$2y$10$QptJLCVmVoJ7m0GXBde0GODgc/BZ60cWHV86QvNYgNKJpPOrYhmGm', 'mariaeduardadossantos2008@gmail.com'),
-(67, 'Fernando ', '12345678900', '$2y$10$.A/RpeQCUxgHa3Ue1OCSfujZU.LKwzwK9jFV5EuWCNf5dKzVPDTEG', 'mariaeduardadossantos2008@gmail.com'),
-(68, 'Fernando ', '12345678900', '$2y$10$WauRrLgWUXCBsPZQP9pKFOwnG7rfsfo4857bRXLyvU3yHOCuuTAP6', 'mariaeduardadossantos2008@gmail.com'),
-(69, 'Fernando ', '12345678900', '$2y$10$xhK7InEGvAbhGfT3HPtZkOWfkSXeo0vcEv0jcC23kujRC0R5eLPZm', 'fernandoprofessor2@gmail.com');
+(58, 'Maria Maravilhosa', '25814736900', '$2y$10$LcKitNbOy38K9gD6duzcku6XvP90wTFjfKpZiLVMVxzatmfKUZNie', 'mariaeduardadossantos2008@gmail.com');
 
 --
 -- Índices para tabelas despejadas

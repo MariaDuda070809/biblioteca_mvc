@@ -100,7 +100,7 @@ button:hover, .btn:hover {
     <h1>Cadastro de Alunos</h1>
     <form method="POST" action="alunos.php">
       <input type="text" name="nome" placeholder="Nome" required>
-      <input type="text" name="serie" placeholder="Série" required>
+      <input type="text" name="salas" placeholder="Série" required>
       <input type="email" name="email" placeholder="Email" required>
 
       <div class="turno-group">

@@ -7,7 +7,7 @@ if (isset($_GET['id'])) {
     $stmt = $pdo->prepare("DELETE FROM alunos WHERE id = ?");
     $stmt->execute([$id]);
 
-    header("Location: alunos_cadastrados.php");
+    header("Location: listar_alunos.php");
     exit();
 } else {
     echo "ID do aluno não especificado.";
