@@ -35,19 +35,6 @@ CREATE TABLE `alunos` (
   `turno` enum('manhã','tarde','noite') NOT NULL DEFAULT 'manhã'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Despejando dados para a tabela `alunos`
---
-
-INSERT INTO `alunos` (`id`, `nome`, `email`, `salas`, `turno`) VALUES
-(1, 'duda', 'igorbizarro@hotmail.com', '9C', 'tarde'),
-(7, 'Maria Eduarda Mota Dias', '00001102613800p@al.educacao.sp.gov.br', '3B', 'manhã'),
-(8, 'Grasiella Cirilo ', 'grasizinha008@gmail.com', '3D', 'manhã'),
-(9, 'João Pedro ', 'joaozinhopretinho@gmail.com', '3D', 'manhã'),
-(10, 'Fernando Pinto', 'fernandinhopintinho69@gmail.com', '3G', 'noite'),
-(11, 'Igor Rafael Moreira Borges da Silva', 'igorbizarro@hotmail.com', '7C', 'tarde'),
-(12, 'Ana Diva', 'anajuliadiva@gmail.com', '3D', 'manhã');
-
 -- --------------------------------------------------------
 
 --
@@ -80,18 +67,6 @@ CREATE TABLE `livros` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `login`
---
-
-CREATE TABLE `login` (
-  `id` int(11) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `senha` varchar(16) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Estrutura para tabela `professores`
 --
 
@@ -108,11 +83,9 @@ CREATE TABLE `professores` (
 --
 
 INSERT INTO `professores` (`id`, `nome`, `cpf`, `senha`, `email`) VALUES
-(58, 'Maria Maravilhosa', '25814736900', '$2y$10$LcKitNbOy38K9gD6duzcku6XvP90wTFjfKpZiLVMVxzatmfKUZNie', 'mariaeduardadossantos2008@gmail.com');
+(1, 'Professor(a)', '99999999999', '$2y$10$j/od963FlXn4XkV8D8fNlue.J4pvrHvUJk9j4RCjSuEXplDxvwRl6', 'professor@gmail.com');
 
---
--- Índices para tabelas despejadas
---
+-- --------------------------------------------------------
 
 --
 -- Índices de tabela `alunos`
