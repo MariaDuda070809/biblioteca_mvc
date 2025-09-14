@@ -109,12 +109,6 @@ ALTER TABLE `livros`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `login`
---
-ALTER TABLE `login`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Índices de tabela `professores`
 --
 ALTER TABLE `professores`
